@@ -30,7 +30,7 @@ app.get('/bathroom/:_id', (req, res) => {
         if (result != null) {
             res.status(200).json(result);
         } else {
-            res.status(400).json({Error: `Exercise ID ${req.params._id} was not found.`});
+            res.status(400).json({Error: `Bathroom ID ${req.params._id} was not found.`});
         }
     })
     .catch(error => {
@@ -42,11 +42,36 @@ app.get('/bathroom/:_id', (req, res) => {
 // GET by position object
 app.get('/bathroom/:_object', (req, res) => {
     console.log('Received GET request by position.');
+    model.findBathrooms(req.params.position)
+    .then(result => {
+        if (result != null) {
+            res.status(200).json(result);
+        } else {
+            res.status(400).json({Error: `Bathroom with position ${req.params.position} was not found.`})
+        }
+    })
+    .catch(error => {
+        console.error(error);
+        res.status(404).json({Error: 'GET request failed.'});
+    })
 });
 
 // POST to create a new bathroom
 app.post('/bathroom/', (req, res) => {
     console.log('Received POST request to bathroom.');
+    // for now, assume that the frontend performs the data validation
+    model.createBathroom(
+        req.params.position,
+        req.params.rating,
+        req.params.name,
+        req.params.tags)
+    .then(result => {
+        res.status(200).json(result);
+    })
+    .catch(error => {
+        console.error(error);
+        res.status(400).json({Efrror: 'POST bathroom failed.'});
+    })
 });
 
 app.listen(PORT, () => {

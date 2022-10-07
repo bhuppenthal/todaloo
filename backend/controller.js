@@ -59,11 +59,12 @@ app.get('/bathroom/:_object', (req, res) => {
 app.post('/bathroom/', (req, res) => {
     console.log('Received POST request to bathroom.');
     // for now, assume that the frontend performs the data validation
+    console.log(req.params.position)
     model.createBathroom(
-        req.params.position,
-        req.params.rating,
-        req.params.name,
-        req.params.tags)
+        req.body.position,
+        req.body.rating,
+        req.body.name,
+        req.body.tags)
     .then(result => {
         res.status(200).json(result);
     })

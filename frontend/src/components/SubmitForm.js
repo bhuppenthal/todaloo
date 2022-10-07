@@ -1,7 +1,7 @@
 import React from 'react';
 
 function SubmitForm ({bathroomLatLng}) {
-    console.log(bathroomLatLng.position);
+    console.log(bathroomLatLng);
 
     return (
         <>

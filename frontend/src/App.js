@@ -13,7 +13,7 @@ import './App.css';
 
 function App() {
 
-  const [bathroomLatLng, setBathroomLatLng] = useState([]);
+  const [bathroomLatLng, setBathroomLatLng] = useState({});
 
   return (
     <>
@@ -23,7 +23,7 @@ function App() {
     <Router>
       <Routes>
       
-        <Route path="/" element={<MapView setBathroomLatLng={setBathroomLatLng}/>}> 
+        <Route path="/" element={<MapView bathroomLatLng={bathroomLatLng} setBathroomLatLng={setBathroomLatLng}/>}> 
         </Route>
 
         <Route path= "/create-bathroom" element={<CreateBathroom bathroomLatLng={bathroomLatLng}/>}>

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { GoogleMap, useLoadScript, Marker }from '@react-google-maps/api';
 //import BathroomMarker from '../components/BathroomMarker';
 
-function Map ({setBathroomLatLng}) {
+function Map ({bathroomLatLng, setBathroomLatLng}) {
 
   const [bathrooms, setBathrooms] = useState([]);
 
@@ -14,6 +14,13 @@ function Map ({setBathroomLatLng}) {
       const bathrooms = await response.json();
       setBathrooms(bathrooms);
       console.log(bathrooms.map(bathroom => bathroom.position));
+  }
+
+  const mapClick = async (e) => {
+    console.log("Registered a click.");
+    setBathroomLatLng({lat: e.latLng.lat(), lng: e.latLng.lng()});
+    console.log(bathroomLatLng);
+    // change history to /create-bathroom
   }
 
   //Load the bathrooms, used when the component is first mounted
@@ -50,10 +57,7 @@ function Map ({setBathroomLatLng}) {
             mapContainerStyle={containerStyle}
             center={center}
             zoom={15}
-            onClick={((e) => {
-              console.log("Registered a click.");
-              setBathroomLatLng({position: {lat: e.latLng.lat(), lng: e.latLng.lng()}});
-            })}
+            onClick={mapClick}
         >
             {/* <BathroomMarker bathrooms={bathrooms}/> */}
             {bathrooms.map((bathroom) => (

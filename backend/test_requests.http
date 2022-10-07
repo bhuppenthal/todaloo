@@ -57,3 +57,7 @@ content-type: application/json
 DELETE http://localhost:3000/user/634065f0fb02dd148db86344 HTTP/1.1
 content-type: application/json
 
+### get by position
+GET http://localhost:3000/bathroom/position/ HTTP/1.1
+content-type: application/json
+

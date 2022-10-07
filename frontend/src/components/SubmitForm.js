@@ -56,10 +56,10 @@ function SubmitForm ({bathroomLatLng}) {
           tags : {accessible: true, free: false}
         }
           
-          console.log(newBathroom)
+        console.log(newBathroom)
         
         const response = await fetch("/bathroom", {
-          method: 'post',
+          method: 'POST',
           body: JSON.stringify(newBathroom),
           headers: {
             'Content-Type': 'application/json',

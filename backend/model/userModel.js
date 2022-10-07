@@ -19,9 +19,9 @@ const findUsers = async (filter) => {
     return query.exec();
 }
 
-// get user by Id (camelcase ID, not freudian concept)
+// get user by Id
 const findUserById = async (_id) => {
-    const query = Bathroom.findById(_id);
+    const query = User.findById(_id);
     return query.exec();
 }
 
@@ -31,15 +31,28 @@ const createUser = async (name, password) => {
     const saltRounds = 10;
     let hashed = '';
 
-    bcrypt.hash(password, saltRounds).then( hash => {
-        hashed = hash;
+    bcrypt.hash(password, saltRounds, function(err, hash) {
+        hashed = hash
+        console.log(hashed)
     });
+
+    console.log(hashed)
 
     const user = new User({
         name: name,
         password: hashed
     });
     return user.save();
+}
+
+const deleteUserById = async (_id) => {
+    const result = await User.deleteOne({_id: _id});
+    return result.deletedCount;
+}
+
+const deleteUserByProperty = async (filter) => {
+    const result = await User.deleteMany(filter);
+    return result.deletedCount;
 }
 
 // export for use in controller

@@ -46,24 +46,26 @@ function Map ({setBathroomLatLng}) {
       <>
       <h2>Hello i am a map</h2>
 
-      <GoogleMap
-          mapContainerStyle={containerStyle}
-          center={center}
-          zoom={15}
-          onClick={((e) => {
-            console.log("Registered a click.");
-            console.log(e);
-          })}
-      >
-          {/* <BathroomMarker bathrooms={bathrooms}/> */}
-          {/* {bathrooms.map((bathroom) => (
-          <Marker 
-              position = {{lat: bathroom.position.lat, lng: bathroom.position.lng}}/>
-          ))}; */}
-          <Marker position = {{lat: 44.567132, lng: -123.272541}} />
-      </GoogleMap>
-      </>
-  )
+        <GoogleMap
+            mapContainerStyle={containerStyle}
+            center={center}
+            zoom={15}
+            onClick={((e) => {
+              console.log("Registered a click.");
+              console.log(e);
+            })}
+        >
+            {/* <BathroomMarker bathrooms={bathrooms}/> */}
+            {bathrooms.map((bathroom) => (
+            <>
+            <Marker 
+                position = {{lat: bathroom.position.lat, lng: bathroom.position.lng}}/>
+              </>
+            ))};
+            {/* <Marker position = {{lat: 44.567132, lng: -123.272541}} /> */}
+        </GoogleMap>
+        </>
+    )
 };
 
 export default Map;

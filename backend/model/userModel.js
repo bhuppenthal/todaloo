@@ -6,7 +6,7 @@ import * as db from './db.js';
 const userSchema = mongoose.Schema({
     name: String,
     ratings: { type: [Object], default: [] },
-    password: String, // TODO: implement password hashing
+    password: { type: String }, // TODO: implement password hashing
     deleted: { type: Boolean, default: false }
 });
 
@@ -33,16 +33,15 @@ const createUser = async (name, password) => {
 
     bcrypt.hash(password, saltRounds, function(err, hash) {
         hashed = hash
-        console.log(hashed)
+
+        const user = new User({
+            name: name,
+            password: hashed
+        });
+        return user.save();
     });
 
-    console.log(hashed)
-
-    const user = new User({
-        name: name,
-        password: hashed
-    });
-    return user.save();
+    
 }
 
 const deleteUserById = async (_id) => {
@@ -56,4 +55,4 @@ const deleteUserByProperty = async (filter) => {
 }
 
 // export for use in controller
-export { createUser, findUsers, findUserById }
+export { createUser, findUsers, findUserById, deleteUserById, deleteUserByProperty }

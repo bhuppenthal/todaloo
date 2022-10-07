@@ -30,7 +30,7 @@ const Bathroom = mongoose.model("Bathroom", bathroomSchema);
 // get bathrooms, given a filter
 const findBathrooms = async (filter) => {
     const query = Bathroom.find(filter);
-    return query.exec();``
+    return query.exec();
 }
 
 // get bathroom by id

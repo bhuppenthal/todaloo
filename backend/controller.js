@@ -19,6 +19,8 @@ app.use(cookieParser(COOKIE_SECRET))
 
 // session set up
 app.use(expressSession({
+    resave: false,
+    saveUninitialized: false,
     secret: COOKIE_SECRET,
     cookie: { maxAge: 3600000 } 
 }))

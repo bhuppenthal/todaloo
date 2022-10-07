@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Map from "../components/Map"
 
 
-function MapView ({setBathroomLatLng}) {
+function MapView ({bathroomLatLng, setBathroomLatLng}) {
 
     // const [bathrooms, setBathrooms] = useState([]);
 
@@ -26,7 +26,7 @@ function MapView ({setBathroomLatLng}) {
     return (
         <>
         <h1>MAPVIEW WORKS</h1>
-        <Map setBathroomLatLng={setBathroomLatLng}/>
+        <Map bathroomLatLng={bathroomLatLng} setBathroomLatLng={setBathroomLatLng}/>
         </>
     );
 };

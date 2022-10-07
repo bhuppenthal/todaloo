@@ -34,3 +34,12 @@ content-type: application/json
     "name": "OSU Bathroom 2",
     "tags": {"free": false, "gender-neutral": false, "disability friendly": false, "changing stations": false}
 }
+
+### create user 1
+POST http://localhost:3000/user HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Testguy",
+    "password": "12345"
+}

@@ -47,21 +47,12 @@ function SubmitForm ({bathroomLatLng}) {
     }
 
     const submitBathroom = async (e) => {
-
-        
-        const accessible = e.checkedAccessible
-        const free = e.checkedFree
-        const genderNeutral = e.checkedGenderNeutral
-        const changingStation = e.checkedChangingStation
-        const showers = e.checkedShowers
-        //setTag({accessible: accessible, free: free, genderNeutral: genderNeutral, changingStation: changingStation, showers: showers });
-        
         
         const newBathroom = {
           position : bathroomLatLng,
           rating : rating,
           name : name,
-          tags : {accessible: accessible, free: free, genderNeutral: genderNeutral, changingStation: changingStation, showers: showers }
+          tags : {accessible: checkedAccessible, free: checkedFree, genderNeutral: checkedGenderNeutral, changingStation: checkedChangingStation, showers: checkedShowers }
         }
           
           console.log(newBathroom)

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
+import { GoogleMap, useLoadScript, Marker, Autocomplete } from '@react-google-maps/api';
 import { useNavigate } from "react-router-dom";
 
 //import BathroomMarker from '../components/BathroomMarker';
@@ -27,7 +27,6 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
     console.log("Registered a map click.");
     setBathroomLatLng({lat: e.latLng.lat(), lng: e.latLng.lng()});
     console.log(bathroomLatLng);
-    //render a button
     setShowButton(!showButton);
     console.log(showButton);
   }
@@ -48,8 +47,9 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
 
 
   const containerStyle = {
-      height: "100vh",
-      width: "100vw"
+      height: "75vh",
+      width: "75vw",
+      margin: "auto"
     };
       
   const center = {
@@ -67,28 +67,20 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
   console.log(`HI you are in map.js here are the BRs: ${bathrooms}`)
   return (
       <>
-      <h2>Hello i am a map</h2>
-
-
         {showButton &&
           <div>
-            <button onClick={buttonClick}>Click to create the bathroom</button>
+            <button onClick={buttonClick} className="button">Click to create the bathroom</button>
           </div>
-        }
-        
-
-
+        } 
         <GoogleMap
             mapContainerStyle={containerStyle}
             center={center}
-            zoom={15}
-            onClick={mapClick}
-        >
-            {/* <BathroomMarker bathrooms={bathrooms}/> */}
+            zoom={13}
+            onClick={mapClick}>
             {bathrooms.map((bathroom) => (
-            <>
-            <Marker position = {{lat: bathroom.position.lat, lng: bathroom.position.lng}}/>
-            </>
+              <>
+              <Marker position = {{lat: bathroom.position.lat, lng: bathroom.position.lng}}/>
+              </>
             ))};
 
             {showButton &&

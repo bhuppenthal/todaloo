@@ -1,6 +1,7 @@
 import express from 'express';
 import * as model from './model.js';
 import 'dotenv/config';
+import * as bathrooms from './model'
 
 // create express instance, set the listening port
 const PORT = process.env.PORT;

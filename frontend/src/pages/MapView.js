@@ -26,7 +26,7 @@ function MapView ({setBathroomLatLng}) {
     return (
         <>
         <h1>MAPVIEW WORKS</h1>
-        <Map/>
+        <Map setBathroomLatLng={setBathroomLatLng}/>
         </>
     );
 };

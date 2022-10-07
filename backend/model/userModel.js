@@ -6,6 +6,7 @@ import * as db from './db.js';
 const userSchema = mongoose.Schema({
     name: String,
     ratings: { type: [Object], default: [] },
+    bathrooms: { type: [Object], default: []},
     password: { type: String, required: true }, // TODO: implement password hashing
     deleted: { type: Boolean, default: false }
 });
@@ -39,9 +40,7 @@ const createUser = async (name, password) => {
             password: hashed
         });
         return user.save();
-    });
-
-    
+    });    
 }
 
 const deleteUserById = async (_id) => {

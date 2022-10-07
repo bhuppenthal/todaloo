@@ -14,7 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 // Sessions use cookie, so include the cookie parser middleware before the express session middleware
-const COOKIE_SECRET = rocess.env.COOKIE_SECRET;
+const COOKIE_SECRET = process.env.COOKIE_SECRET;
 app.use(cookieParser(COOKIE_SECRET))
 
 // session set up
@@ -145,7 +145,8 @@ app.post('/login', async (req, res) => {
 
 // user log out
 app.post('/logout', (req, res) => {
-    res.session.user_id = null;
+    req.session.user_id = null;
+    // req.session.destroy() this useful if we need to get rid of multiple session variables
 })
 
 // delete user by id

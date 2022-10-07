@@ -90,6 +90,12 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
             <Marker position = {{lat: bathroom.position.lat, lng: bathroom.position.lng}}/>
             </>
             ))};
+
+            {showButton &&
+              <>
+              <Marker position = {{lat: bathroomLatLng.lat, lng: bathroomLatLng.lng}}/>
+              </>
+            }
         </GoogleMap>
         </>
     )

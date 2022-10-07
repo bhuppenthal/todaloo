@@ -51,11 +51,13 @@ function Map () {
             zoom={15}
         >
             {/* <BathroomMarker bathrooms={bathrooms}/> */}
-            {/* {bathrooms.map((bathroom) => (
+            {bathrooms.map((bathroom) => (
+            <>
             <Marker 
                 position = {{lat: bathroom.position.lat, lng: bathroom.position.lng}}/>
-            ))}; */}
-            <Marker position = {{lat: 44.567132, lng: -123.272541}} />
+              </>
+            ))};
+            {/* <Marker position = {{lat: 44.567132, lng: -123.272541}} /> */}
         </GoogleMap>
         </>
     )

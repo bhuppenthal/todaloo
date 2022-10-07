@@ -17,20 +17,16 @@ function App() {
   return (
     <>
 
-    <h1>To Da Loo</h1>
+    <header class="app-header">To Da Loo</header>
 
     <Router>
       <Routes>
-      
-        <Route path="/" element={<MapView bathroomLatLng={bathroomLatLng} setBathroomLatLng={setBathroomLatLng}/>}> 
-        </Route>
-
-        <Route path= "/create-bathroom" element={<CreateBathroom bathroomLatLng={bathroomLatLng}/>}>
-        </Route>
+        <Route path="/" element={<MapView bathroomLatLng={bathroomLatLng} setBathroomLatLng={setBathroomLatLng}/>}></Route>
+        <Route path= "/create-bathroom" element={<CreateBathroom bathroomLatLng={bathroomLatLng}/>}></Route>
 
       </Routes>
     </Router>
-
+    <footer>&copy; 2022 Joanna Getek, Brenda Huppenthal, Nathaniel Luginbill</footer>
   </>
   );
 }

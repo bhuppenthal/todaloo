@@ -54,6 +54,6 @@ content-type: application/json
 }
 
 ### delete user by id
-DELETE http://localhost:3000/user/634065ad71634d69c26d0d5c HTTP/1.1
+DELETE http://localhost:3000/user/634065f0fb02dd148db86344 HTTP/1.1
 content-type: application/json
 

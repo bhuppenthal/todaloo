@@ -21,7 +21,7 @@ const bathroomSchema = mongoose.Schema({
     position: { lat: {type: Number, required: true}, lng: { type: Number, required: true }},
     rating: { type: Number, required: true },
     name: { type: String },
-    tags: { type: ObjectId }
+    tags: { type: Object }
 });
 
 // compile the model from the schema

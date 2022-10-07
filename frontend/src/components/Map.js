@@ -1,11 +1,15 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { GoogleMap, useLoadScript, Marker }from '@react-google-maps/api';
+import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
+import { useNavigate } from "react-router-dom";
+
 //import BathroomMarker from '../components/BathroomMarker';
 
 function Map ({bathroomLatLng, setBathroomLatLng}) {
 
   const [bathrooms, setBathrooms] = useState([]);
+  const navigate = useNavigate();
+  console.log(bathroomLatLng); // do not remove this statement, it is a load bearing console log
 
   // Retrieve all the bathrooms in db
   const loadBathrooms = async () => {
@@ -16,17 +20,20 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
       console.log(bathrooms.map(bathroom => bathroom.position));
   }
 
+  // Fires when the Map component is clicked on
   const mapClick = async (e) => {
     console.log("Registered a click.");
     setBathroomLatLng({lat: e.latLng.lat(), lng: e.latLng.lng()});
     console.log(bathroomLatLng);
-    // change history to /create-bathroom
+    navigate("/create-bathroom");
   }
 
   //Load the bathrooms, used when the component is first mounted
   useEffect(() => {
-      loadBathrooms();
-      console.log(bathrooms);
+    console.log("Loaded the page.");
+    loadBathrooms();
+    console.log(bathrooms);
+    console.log(bathroomLatLng);
   }, []);
 
 
@@ -42,7 +49,6 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyCSav7XYiFV_A__jXEwiNmcrryHmYS-VPY",
-    
   })
     
   if (loadError) return "Error"; 

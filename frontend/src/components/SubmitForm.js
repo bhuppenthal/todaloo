@@ -90,7 +90,7 @@ function SubmitForm ({bathroomLatLng}) {
             value={checkedShowers} 
             onChange={handleChangeShowers}/>
 
-          <button type="submit" className="submitButton">
+          <button type="submit" className="button">
             Add Bathroom
           </button>
         </form>

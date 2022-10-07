@@ -36,7 +36,7 @@ content-type: application/json
 }
 
 ### create user 1
-POST http://localhost:3000/user HTTP/1.1
+POST http://localhost:3000/register HTTP/1.1
 content-type: application/json
 
 {
@@ -44,7 +44,16 @@ content-type: application/json
     "password": "12345"
 }
 
+### user login
+POST http://localhost:3000/login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "Testguy",
+    "password": "12345"
+}
+
 ### delete user by id
-DELETE http://localhost:3000/user/634064d0ed0ae8ef1cbcb531 HTTP/1.1
+DELETE http://localhost:3000/user/634065ad71634d69c26d0d5c HTTP/1.1
 content-type: application/json
 

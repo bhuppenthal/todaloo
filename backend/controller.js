@@ -3,6 +3,7 @@ import * as bathroomModel from './model/bathroomModel.js';
 import * as userModel from './model/userModel.js'
 import 'dotenv/config';
 import cors from 'cors';
+import bcrypt from 'bcrypt';
 
 // create express instance, set the listening port
 const PORT = process.env.PORT;
@@ -86,8 +87,8 @@ app.post('/bathroom/', (req, res) => {
 });
 
 // POST to create a new user
-app.post('/user/', (req, res) => {
-    console.log('Received POST request to user.');
+app.post('/register/', (req, res) => {
+    console.log('Received POST request to register.');
 
     // check if the bathroom already exists
     userModel.findUsers({name: req.body.name})
@@ -111,6 +112,20 @@ app.post('/user/', (req, res) => {
         }
     })    
 });
+
+app.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+    console.log(username)
+    const filter = {name: username}
+    const userList = await userModel.findUsers(filter);
+    const user = userList[0]
+    const validPassword = await bcrypt.compare(password, user.password)
+    if (validPassword) {
+        console.log("login worked")
+    } else {
+        console.log("login failed")
+    }
+})
 
 // delete user by id
 app.delete('/user/:id', (req, res) => {

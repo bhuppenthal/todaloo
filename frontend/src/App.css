@@ -1,7 +1,7 @@
           /* ...or hosted services like Google Fonts 
 @import url(//fonts.googleapis.com/css?family=Font+Name);
           */
-@import url('https://fonts.googleapis.com/css2?family=Gemunu+Libre&family=Silkscreen&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Silkscreen&display=swap');
 @import '../node_modules/modern-normalize/modern-normalize.css';
           /* npm install modern-normalize 
             Resets elements for browser consistancy.  
@@ -9,12 +9,11 @@
           */
 /*   ----- Variables  -----  */
 :root {
-
 }
 
 /*  ----- Viewport ----- elements inherited by all remaining elements ----- */
 body {
-  font-family: Silkscreen;
+  font-family: 'Roboto Mono';
 }
 
 /* ----- Anchors ----- Text links */
@@ -37,7 +36,7 @@ header {
   background-color: whitesmoke;
   color: black;
   border: 0;
-  font-family: Silkscreen;
+  font-family: 'Silkscreen';
   font-size: calc(50px + 2vmin);
   font-weight:100;
   margin: 0;
@@ -113,9 +112,13 @@ tr th {
 }
 
 /*  ----- Form rules -----  */
+form {
+  outline: 5px black;
+}
 fieldset {
   margin-top:;
-  padding:;
+  padding:10px;
+  border: 5px solid black;
 }
 
 legend {

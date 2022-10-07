@@ -1,0 +1,12 @@
+### Request 1: CREATE first exercise Squat
+GET http://localhost:3000/bathroom HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Squat",
+    "reps": 10,
+    "weight": 30,
+    "unit": "lbs",
+    "date": "01-18-22"
+}
+

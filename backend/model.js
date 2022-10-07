@@ -21,7 +21,7 @@ const bathroomSchema = mongoose.Schema({
     position: { lat: {type: Number, required: true}, lng: { type: Number, required: true }},
     rating: { type: Number, required: true },
     name: { type: String },
-    tags: { type: ObjectId }
+    tags: { type: Object }
 });
 
 // compile the model from the schema
@@ -30,7 +30,7 @@ const Bathroom = mongoose.model("Bathroom", bathroomSchema);
 // get bathrooms, given a filter
 const findBathrooms = async (filter) => {
     const query = Bathroom.find(filter);
-    return query.exec();``
+    return query.exec();
 }
 
 // get bathroom by id

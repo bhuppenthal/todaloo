@@ -13,7 +13,7 @@ import './App.css';
 
 function App() {
 
-  const [bathroomLatLng, setBathroomLatLng] = useState({});
+  const [bathroomLatLng, setBathroomLatLng] = useState(null);
 
   return (
     <>

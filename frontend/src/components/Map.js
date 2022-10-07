@@ -52,14 +52,14 @@ function Map ({setBathroomLatLng}) {
             zoom={15}
             onClick={((e) => {
               console.log("Registered a click.");
-              console.log(e);
+              console.log(e.latLng);
+              setBathroomLatLng(e.latLng);
             })}
         >
             {/* <BathroomMarker bathrooms={bathrooms}/> */}
             {bathrooms.map((bathroom) => (
             <>
-            <Marker 
-                position = {{lat: bathroom.position.lat, lng: bathroom.position.lng}}/>
+            <Marker position = {{lat: bathroom.position.lat, lng: bathroom.position.lng}}/>
             </>
             ))};
         </GoogleMap>

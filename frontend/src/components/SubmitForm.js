@@ -7,10 +7,31 @@ function SubmitForm ({bathroomLatLng}) {
     const [rating, setRating] = useState('');
     const [name, setName] = useState('');
     const [tags, setTags] = useState('');
-    const [checked, setChecked] = React.useState(false);
+    const [checkedAccessible, setCheckedAccessible] = React.useState(false);
+    const [checkedFree, setCheckedFree] = React.useState(false);
+    const [checkedGenderNeutral, setCheckedGenderNeutral] = React.useState(false);
+    const [checkedChangingStation, setCheckedChangingStation] = React.useState(false);
+    const [checkedShowers, setCheckedShowers] = React.useState(false);
 
-    const handleChangeCheck = () => {
-        setChecked(!checked);
+
+    const handleChangeAcessible = () => {
+        setCheckedAccessible(!checkedAccessible);
+    }
+
+    const handleChangeFree = () => {
+        setCheckedFree(!checkedFree);
+    }
+
+    const handleChangeGenderNeutral = () => {
+        setCheckedGenderNeutral(!checkedGenderNeutral);
+    }
+
+    const handleChangeChangingStation = () => {
+        setCheckedChangingStation(!checkedChangingStation);
+    }
+
+    const handleChangeChangingShowers = () => {
+        setCheckedShowers(!checkedShowers);
     }
 
     return (
@@ -38,11 +59,10 @@ function SubmitForm ({bathroomLatLng}) {
             class="long_input"
           />
           <label>Tags</label>
-          <input 
-          type="checkbox"
-          checked={checked}
-          onChange={handleChangeCheck}
-          />
+          <Checkbox
+            label="Accessible"
+            value={checkedAccessible} 
+            onChange={handleChangeAcessible}/>
 
           <button type="submit" className="submitButton">
             Add Bathroom
@@ -50,6 +70,16 @@ function SubmitForm ({bathroomLatLng}) {
         </form>
       </div>
     );
+
+    const Checkbox = ({ label, value, onChange }) => {
+        return(
+            <label>
+                <input type="checkbox" checked={value} onChange={onChange} />
+                {label}
+            </label>
+
+        );
+    }
 };
 
 export default SubmitForm;

@@ -69,7 +69,7 @@ app.post('/bathroom/', (req, res) => {
     })
     .catch(error => {
         console.error(error);
-        res.status(400).json({Efrror: 'POST bathroom failed.'});
+        res.status(400).json({Error: 'POST bathroom failed.'});
     })
 });
 

@@ -24,7 +24,7 @@ app.get('/bathroom/', (req, res) => {
 // GET to bathroom/:_id returns bathroom object
 app.get('/bathroom/:_id', (req, res) => {
     console.log('Received GET request by ID.');
-    db.findBathroomById(req.params._id)
+    db.findBathroomById({_id: req.body._id})
     .then(result => {
         if (result != null) {
             res.status(200).json(result);
@@ -39,9 +39,9 @@ app.get('/bathroom/:_id', (req, res) => {
 });
 
 // GET by position object
-app.get('/bathroom/:_object', (req, res) => {
+app.get('/bathroom/position', (req, res) => {
     console.log('Received GET request by position.');
-    model.findBathrooms(req.params.position)
+    model.findBathrooms({position: req.body.position})
     .then(result => {
         if (result != null) {
             res.status(200).json(result);
@@ -59,24 +59,27 @@ app.get('/bathroom/:_object', (req, res) => {
 app.post('/bathroom/', (req, res) => {
     console.log('Received POST request to bathroom.');
     console.log(req.body);
-    // for now, assume that the frontend performs the data validation
-    console.log(req.params.position)
-    model.createBathroom(
-        req.body.position,
-        req.body.rating,
-        req.body.name,
-        req.body.tags)
+
+    // check if the bathroom already exists
+    model.findBathrooms({position: req.body.position})
     .then(result => {
-        if (result === null) {
+        if (result.length !== 0) {
             res.status(400).json({Error: 'Bathroom already exists.'});
-            return;
+        } else {
+            model.createBathroom(
+                req.body.position,
+                req.body.rating,
+                req.body.name,
+                req.body.tags)
+            .then(result => {
+                res.status(201).json(result);
+            })
+            .catch(error => {
+                console.error(error);
+                res.status(400).json({Error: 'POST bathroom failed.'});
+            })
         }
-        res.status(201).json(result);
-    })
-    .catch(error => {
-        console.error(error);
-        res.status(400).json({Error: 'POST bathroom failed.'});
-    })
+    })    
 });
 
 app.listen(PORT, () => {

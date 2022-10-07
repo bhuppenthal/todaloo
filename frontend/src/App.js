@@ -10,7 +10,6 @@ import CreateBathroom from './pages/CreateBathroom';
 // importing styles
 import './App.css';
 
-
 function App() {
 
   const [bathroomLatLng, setBathroomLatLng] = useState(null);

@@ -83,7 +83,7 @@ app.post('/bathroom/', (req, res) => {
         if (result.length !== 0) {
             res.status(400).json({Error: 'Bathroom already exists.'});
         } else {
-            model.createBathroom(
+            bathroomModel.createBathroom(
                 req.body.position,
                 req.body.rating,
                 req.body.name,

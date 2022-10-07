@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 
 function SubmitForm ({bathroomLatLng}) {
-    console.log(bathroomLatLng.position);
+    console.log(bathroomLatLng);
 
     const [rating, setRating] = useState('');
     const [name, setName] = useState('');

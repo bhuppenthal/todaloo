@@ -4,12 +4,25 @@ import * as userModel from './model/userModel.js'
 import 'dotenv/config';
 import cors from 'cors';
 import bcrypt from 'bcrypt';
+import cookieParser from 'cookie-parser';
+import expressSession from 'express-session';
+
 
 // create express instance, set the listening port
 const PORT = process.env.PORT;
 const app = express();
 app.use(express.json());
 app.use(cors());
+// Sessions use cookie, so include the cookie parser middleware before the express session middleware
+const COOKIE_SECRET = process.env.COOKIE_SECRET;
+app.use(cookieParser(COOKIE_SECRET))
+
+// session set up
+app.use(expressSession({
+    secret: COOKIE_SECRET,
+    cookie: { maxAge: 3600000 } 
+}))
+
 
 //---------------BATHROOM---------------
 // GET request to bathroom return every bathroom object
@@ -113,18 +126,27 @@ app.post('/register/', (req, res) => {
     })    
 });
 
+
+// user login
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
     console.log(username)
     const filter = {name: username}
     const userList = await userModel.findUsers(filter);
+    // findUsers returns a list of results, so take only result from list
     const user = userList[0]
     const validPassword = await bcrypt.compare(password, user.password)
     if (validPassword) {
-        console.log("login worked")
+        req.session.user_id = user._id
     } else {
         console.log("login failed")
     }
+})
+
+// user log out
+app.post('/logout', (req, res) => {
+    req.session.user_id = null;
+    // req.session.destroy() this useful if we need to get rid of multiple session variables
 })
 
 // delete user by id

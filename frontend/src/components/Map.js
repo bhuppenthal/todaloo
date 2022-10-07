@@ -4,10 +4,12 @@ import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import { useNavigate } from "react-router-dom";
 
 //import BathroomMarker from '../components/BathroomMarker';
+import BathroomButton from '../components/BathroomButton';
 
 function Map ({bathroomLatLng, setBathroomLatLng}) {
 
   const [bathrooms, setBathrooms] = useState([]);
+  const [showButton, setShowButton] = useState(false);
   const navigate = useNavigate();
   console.log(bathroomLatLng); // do not remove this statement, it is a load bearing console log
 
@@ -22,9 +24,17 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
 
   // Fires when the Map component is clicked on
   const mapClick = async (e) => {
-    console.log("Registered a click.");
+    console.log("Registered a map click.");
     setBathroomLatLng({lat: e.latLng.lat(), lng: e.latLng.lng()});
     console.log(bathroomLatLng);
+    //render a button
+    setShowButton(!showButton);
+    console.log(showButton);
+  }
+
+  // Button on click should perform map on click events
+  const buttonClick = async (e) => {
+    console.log("Registered a button click.")
     navigate("/create-bathroom");
   }
 
@@ -58,6 +68,15 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
   return (
       <>
       <h2>Hello i am a map</h2>
+
+
+        {showButton &&
+          <div>
+            <button onClick={buttonClick}>Click to create the bathroom</button>
+          </div>
+        }
+        
+
 
         <GoogleMap
             mapContainerStyle={containerStyle}

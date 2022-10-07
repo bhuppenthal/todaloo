@@ -20,8 +20,8 @@ db.once("open", (err) => {
 const bathroomSchema = mongoose.Schema({
     position: { lat: {type: Number, required: true}, lng: { type: Number, required: true }},
     rating: { type: Number, required: true },
-    name: { type: String },
-    tags: { type: Object }
+    name: { type: String, required: true },
+    tags: { type: Object, required: true }
 });
 
 // compile the model from the schema

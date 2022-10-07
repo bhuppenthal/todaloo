@@ -45,7 +45,7 @@ app.get('/bathroom/:_object', (req, res) => {
 });
 
 // POST to create a new bathroom
-app.post('/bathroom/', (req, res) +> {
+app.post('/bathroom/', (req, res) => {
     console.log('Received POST request to bathroom.');
 });
 

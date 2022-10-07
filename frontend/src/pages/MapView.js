@@ -20,7 +20,7 @@ function MapView ({setBathroomLatLng}) {
         loadBathrooms();
     }, []);
 
-    console.log(`Here are bathrooms from get req: ${bathrooms}`)
+    console.log(`Here are bathrooms positions from get req: ${bathrooms.position}`)
 
     return (
         <>

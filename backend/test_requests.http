@@ -4,5 +4,30 @@ content-type: application/json
 
 ### create bathroom
 POST http://localhost:3000/bathroom HTTP/1.1
+content-type: application/json
 
-{}
+{
+    "position": {"lat": 44.567132, "lng": -123.272541},
+    "rating": 5,
+    "name": "OSU Bathroom",
+    "tags": {"gender-neutral": false, "disability friendly": true, "changing stations": false}
+}
+
+### create bathroom
+POST http://localhost:3000/bathroom HTTP/1.1
+content-type: application/json
+
+{
+    "position": {"lat": 44.567132, "lng": -123.272541},
+    "rating": 5,
+    "name": "OSU Bathroom",
+    "tags": {"gender-neutral": false, "disability friendly": true, "changing stations": false}
+}
+
+POST http://localhost:3000/bathroom HTTP/1.1
+{
+    "position": {"lat": 44.567132, "lng": -123.272541},
+    "rating": 5,
+    "name": "OSU Bathroom",
+    "tags": {"gender-neutral": false, "disability friendly": true, "changing stations": false}
+}

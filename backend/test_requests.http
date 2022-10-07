@@ -43,3 +43,8 @@ content-type: application/json
     "name": "Testguy",
     "password": "12345"
 }
+
+### delete user by id
+DELETE http://localhost:3000/user/634064d0ed0ae8ef1cbcb531 HTTP/1.1
+content-type: application/json
+

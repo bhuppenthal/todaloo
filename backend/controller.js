@@ -113,8 +113,8 @@ app.post('/user/', (req, res) => {
 });
 
 // delete user by id
-app.delete('/user/', (req, res) => {
-    users.deleteUserById(res.body._id)
+app.delete('/user/:id', (req, res) => {
+    userModel.deleteUserById(req.params.id)
         .then(deletedCount => {
             res.send({ deletedCount: deletedCount});
         })
@@ -123,8 +123,6 @@ app.delete('/user/', (req, res) => {
             res.send({ error: 'Request failed'});
         });
 });
-
-
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${process.env.PORT}.`)

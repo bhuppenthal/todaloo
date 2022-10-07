@@ -6,7 +6,7 @@ import * as db from './db.js';
 const userSchema = mongoose.Schema({
     name: String,
     ratings: { type: [Object], default: [] },
-    password: { type: String }, // TODO: implement password hashing
+    password: { type: String, required: true }, // TODO: implement password hashing
     deleted: { type: Boolean, default: false }
 });
 
@@ -30,7 +30,7 @@ const createUser = async (name, password) => {
     // for bcrypt hashing
     const saltRounds = 10;
     let hashed = '';
-
+    
     bcrypt.hash(password, saltRounds, function(err, hash) {
         hashed = hash
 

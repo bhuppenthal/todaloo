@@ -41,7 +41,7 @@ function SubmitForm ({bathroomLatLng}) {
         setCheckedChangingStation(!checkedChangingStation);
     }
 
-    const handleChangeChangingShowers = () => {
+    const handleChangeShowers = () => {
         setCheckedShowers(!checkedShowers);
     }
 
@@ -67,13 +67,28 @@ function SubmitForm ({bathroomLatLng}) {
             value={name}
             id="name"
             onChange={(e) => setName(e.target.value)}
-            class="long_input"
           />
           <label>Tags</label>
           <Checkbox
             label="Accessible"
             value={checkedAccessible} 
             onChange={handleChangeAcessible}/>
+          <Checkbox
+            label="Free"
+            value={checkedFree} 
+            onChange={handleChangeFree}/>
+          <Checkbox
+            label="Gender Neutral"
+            value={checkedGenderNeutral} 
+            onChange={handleChangeGenderNeutral}/>
+          <Checkbox
+            label="Changing Station"
+            value={checkedChangingStation} 
+            onChange={handleChangeChangingStation}/>
+          <Checkbox
+            label="Showers"
+            value={checkedShowers} 
+            onChange={handleChangeShowers}/>
 
           <button type="submit" className="submitButton">
             Add Bathroom

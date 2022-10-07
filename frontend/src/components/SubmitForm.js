@@ -2,6 +2,17 @@ import React from 'react';
 import { useState } from 'react';
 
 function SubmitForm ({bathroomLatLng}) {
+
+    const Checkbox = ({ label, value, onChange }) => {
+        return(
+            <label>
+                <input type="checkbox" checked={value} onChange={onChange} />
+                {label}
+            </label>
+
+        );
+    }
+
     console.log(bathroomLatLng);
 
     const [rating, setRating] = useState('');
@@ -71,15 +82,6 @@ function SubmitForm ({bathroomLatLng}) {
       </div>
     );
 
-    const Checkbox = ({ label, value, onChange }) => {
-        return(
-            <label>
-                <input type="checkbox" checked={value} onChange={onChange} />
-                {label}
-            </label>
-
-        );
-    }
 };
 
 export default SubmitForm;

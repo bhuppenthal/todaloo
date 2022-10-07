@@ -25,7 +25,6 @@ function MapView ({bathroomLatLng, setBathroomLatLng}) {
 
     return (
         <>
-        <h1>MAPVIEW WORKS</h1>
         <Map bathroomLatLng={bathroomLatLng} setBathroomLatLng={setBathroomLatLng}/>
         </>
     );

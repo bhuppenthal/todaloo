@@ -55,9 +55,8 @@ function Map () {
             <>
             <Marker 
                 position = {{lat: bathroom.position.lat, lng: bathroom.position.lng}}/>
-              </>
+            </>
             ))};
-            {/* <Marker position = {{lat: 44.567132, lng: -123.272541}} /> */}
         </GoogleMap>
         </>
     )

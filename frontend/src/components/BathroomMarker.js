@@ -8,16 +8,13 @@ function BathroomMarker (bathrooms) {
 
     return (
         <>
-        <p>BR marker</p>
+        {bathrooms.map((bathroom) => (
+            <>
+            <Marker 
+                position = {{lat: bathroom.position.lat, lng: bathroom.position.lng}}/>
+            </>
+        ))};
         </>
-        // <>
-        // {bathrooms.map((bathroom) => (
-        //     <>
-        //     <Marker 
-        //         position = {{lat: bathroom.position.lat, lng: bathroom.position.lng}}/>
-        //     </>
-        // ))};
-        // </>
     );
 };
 

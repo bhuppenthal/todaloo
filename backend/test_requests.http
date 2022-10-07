@@ -2,7 +2,7 @@
 GET http://localhost:3000/bathroom HTTP/1.1
 content-type: application/json
 
-### create bathroom
+### create bathroom 1
 POST http://localhost:3000/bathroom HTTP/1.1
 content-type: application/json
 
@@ -10,24 +10,27 @@ content-type: application/json
     "position": {"lat": 44.567132, "lng": -123.272541},
     "rating": 5,
     "name": "OSU Bathroom",
-    "tags": {"gender-neutral": false, "disability friendly": true, "changing stations": false}
+    "tags": {"free": true, "gender-neutral": false, "disability friendly": true, "changing stations": false}
 }
 
-### create bathroom
+### create bathroom 2
 POST http://localhost:3000/bathroom HTTP/1.1
 content-type: application/json
 
 {
-    "position": {"lat": 44.567132, "lng": -123.272541},
-    "rating": 5,
-    "name": "OSU Bathroom",
-    "tags": {"gender-neutral": false, "disability friendly": true, "changing stations": false}
+    "position": {"lat": 44.554297, "lng": -123.274483},
+    "rating": 3,
+    "name": "OSU Bathroom 2",
+    "tags": {"free": true, "gender-neutral": true, "disability friendly": true, "changing stations": false}
 }
 
+### create bathroom 3
 POST http://localhost:3000/bathroom HTTP/1.1
+content-type: application/json
+
 {
-    "position": {"lat": 44.565389, "lng": -123.281924},
-    "rating": 5,
-    "name": "OSU Bathroom",
-    "tags": {"gender-neutral": false, "disability friendly": true, "changing stations": false}
+    "position": {"lat": 44.550146, "lng": -123.312394},
+    "rating": 1,
+    "name": "OSU Bathroom 2",
+    "tags": {"free": false, "gender-neutral": false, "disability friendly": false, "changing stations": false}
 }

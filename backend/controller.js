@@ -66,7 +66,11 @@ app.post('/bathroom/', (req, res) => {
         req.body.name,
         req.body.tags)
     .then(result => {
-        res.status(200).json(result);
+        if (result === null) {
+            res.status(400).json({Error: 'Bathroom already exists.'});
+            return;
+        }
+        res.status(201).json(result);
     })
     .catch(error => {
         console.error(error);

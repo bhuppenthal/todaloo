@@ -41,13 +41,26 @@ const findBathroomById = async (_id) => {
 
 // create a bathroom
 const createBathroom = async (position, rating, name, tags) => {
-    const bathroom = new Bathroom({
-        position: position,
-        rating: rating,
-        name: name,
-        tags: tags
+    // check if the bathroom already exists
+    console.log(position);
+    const query = Bathroom.find({position: position}).exec()
+    .then(query => {
+        console.log(query)
+        console.log(query.length)
+        if (query != null) {
+            console.log('This bathroom already exists.');
+            return null;
+        } else {
+            console.log('This bathroom does not exist.');
+            const bathroom = new Bathroom({
+                position: position,
+                rating: rating,
+                name: name,
+                tags: tags
+            });
+            return bathroom.save();
+        }
     });
-    return bathroom.save();
 }
 
 // export for use in controller file

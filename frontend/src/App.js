@@ -2,6 +2,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
+
+//importing pages
 import MapView from './pages/MapView';
 import CreateBathroom from './pages/CreateBathroom';
 

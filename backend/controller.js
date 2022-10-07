@@ -2,11 +2,13 @@ import express from 'express';
 import * as bathroomModel from './model/bathroomModel.js';
 import * as userModel from './model/userModel.js'
 import 'dotenv/config';
+import cors from 'cors';
 
 // create express instance, set the listening port
 const PORT = process.env.PORT;
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 //---------------BATHROOM---------------
 // GET request to bathroom return every bathroom object

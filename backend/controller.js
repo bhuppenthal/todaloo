@@ -7,7 +7,6 @@ import bcrypt from 'bcrypt';
 import cookieParser from 'cookie-parser';
 import expressSession from 'express-session';
 
-
 // create express instance, set the listening port
 const PORT = process.env.PORT;
 const app = express();
@@ -60,7 +59,7 @@ app.get('/bathroom/:_id', (req, res) => {
 // GET by position object
 app.get('/bathroom/position', (req, res) => {
     console.log('Received GET request by position.');
-    bathroomModel.findBathrooms({position: req.body.position})
+    bathroomModel.findBathrooms({position: req.param.position})
     .then(result => {
         if (result != null) {
             res.status(200).json(result);
@@ -75,7 +74,7 @@ app.get('/bathroom/position', (req, res) => {
 });
 
 // POST to create a new bathroom
-app.post('/bathroom/', (req, res) => {
+app.post('/bathroom', (req, res) => {
     console.log('Received POST request to bathroom.');
     console.log(req.body);
 

@@ -52,8 +52,7 @@ function Map ({setBathroomLatLng}) {
             zoom={15}
             onClick={((e) => {
               console.log("Registered a click.");
-              console.log(e.latLng);
-              setBathroomLatLng(e.latLng);
+              setBathroomLatLng({position: {lat: e.latLng.lat(), lng: e.latLng.lng()}});
             })}
         >
             {/* <BathroomMarker bathrooms={bathrooms}/> */}

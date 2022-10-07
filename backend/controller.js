@@ -1,5 +1,5 @@
 import express from 'express';
-import * as model from './model.js';
+import * as model from './model/bathroomModel.js';
 import 'dotenv/config';
 
 // create express instance, set the listening port

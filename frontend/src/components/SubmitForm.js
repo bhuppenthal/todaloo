@@ -24,9 +24,7 @@ function SubmitForm ({bathroomLatLng}) {
     const [checkedChangingStation, setCheckedChangingStation] = React.useState(false);
     const [checkedShowers, setCheckedShowers] = React.useState(false);
 
-    //setTag({checkedAccessible, checkedFree, checkedGenderNeutral, checkedChangingStation, checkedShowers});
-
-
+    
 
     const handleChangeAcessible = () => {
         setCheckedAccessible(!checkedAccessible);
@@ -49,11 +47,21 @@ function SubmitForm ({bathroomLatLng}) {
     }
 
     const submitBathroom = async (e) => {
+
+        
+        const accessible = e.checkedAccessible
+        const free = e.checkedFree
+        const genderNeutral = e.checkedGenderNeutral
+        const changingStation = e.checkedChangingStation
+        const showers = e.checkedShowers
+        //setTag({accessible: accessible, free: free, genderNeutral: genderNeutral, changingStation: changingStation, showers: showers });
+        
+        
         const newBathroom = {
           position : bathroomLatLng,
           rating : rating,
           name : name,
-          tags : {accessible: true, free: false}
+          tags : {accessible: accessible, free: free, genderNeutral: genderNeutral, changingStation: changingStation, showers: showers }
         }
           
           console.log(newBathroom)

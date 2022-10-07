@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { GoogleMap, useLoadScript, Marker }from '@react-google-maps/api';
 //import BathroomMarker from '../components/BathroomMarker';
 
-function Map () {
+function Map ({setBathroomLatLng}) {
 
   const [bathrooms, setBathrooms] = useState([]);
 
@@ -19,36 +19,41 @@ function Map () {
   //Load the bathrooms, used when the component is first mounted
   useEffect(() => {
       loadBathrooms();
+      console.log(bathrooms);
   }, []);
 
 
-    const containerStyle = {
-        height: "100vh",
-        width: "100vw"
-      };
+  const containerStyle = {
+      height: "100vh",
+      width: "100vw"
+    };
       
-      const center = {
-        lat: 44.5646,
-        lng: -123.2620
-      };
+  const center = {
+    lat: 44.5646,
+    lng: -123.2620
+  };
 
-      const { isLoaded, loadError } = useLoadScript({
-        googleMapsApiKey: "AIzaSyCSav7XYiFV_A__jXEwiNmcrryHmYS-VPY",
-        
-      })
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: "AIzaSyCSav7XYiFV_A__jXEwiNmcrryHmYS-VPY",
     
-    if (loadError) return "Error"; 
-    if (!isLoaded) return "Loading...";
+  })
+    
+  if (loadError) return "Error"; 
+  if (!isLoaded) return "Loading...";
 
-    console.log(`HI you are in map.js here are the BRs: ${bathrooms}`)
-    return (
-        <>
-        <h2>Hello i am a map</h2>
+  console.log(`HI you are in map.js here are the BRs: ${bathrooms}`)
+  return (
+      <>
+      <h2>Hello i am a map</h2>
 
         <GoogleMap
             mapContainerStyle={containerStyle}
             center={center}
             zoom={15}
+            onClick={((e) => {
+              console.log("Registered a click.");
+              console.log(e);
+            })}
         >
             {/* <BathroomMarker bathrooms={bathrooms}/> */}
             {bathrooms.map((bathroom) => (

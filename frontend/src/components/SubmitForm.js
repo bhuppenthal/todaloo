@@ -17,12 +17,15 @@ function SubmitForm ({bathroomLatLng}) {
 
     const [rating, setRating] = useState('');
     const [name, setName] = useState('');
-    const [tags, setTags] = useState('');
+    const [tags, setTag] = useState('');
     const [checkedAccessible, setCheckedAccessible] = React.useState(false);
     const [checkedFree, setCheckedFree] = React.useState(false);
     const [checkedGenderNeutral, setCheckedGenderNeutral] = React.useState(false);
     const [checkedChangingStation, setCheckedChangingStation] = React.useState(false);
     const [checkedShowers, setCheckedShowers] = React.useState(false);
+
+    //setTag({checkedAccessible, checkedFree, checkedGenderNeutral, checkedChangingStation, checkedShowers});
+
 
 
     const handleChangeAcessible = () => {
@@ -45,6 +48,32 @@ function SubmitForm ({bathroomLatLng}) {
         setCheckedShowers(!checkedShowers);
     }
 
+    const submitBathroom = async (e) => {
+        const newBathroom = {
+          position : bathroomLatLng,
+          rating : rating,
+          name : name,
+          tags : {accessible: true, free: false}
+        }
+          
+          console.log(newBathroom)
+        
+        const response = await fetch("/bathroom", {
+          method: 'post',
+          body: JSON.stringify(newBathroom),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+  
+        if(response.status === 201) {
+            alert("successfully added the bathroom to DB!");
+        } else {
+            alert(`Failed to add marker too bad, status code = ${response.status}`);
+        }
+        //history.push("/");
+      };
+
     return (
         
         <div className = "submit-form">
@@ -54,7 +83,7 @@ function SubmitForm ({bathroomLatLng}) {
             value={rating}
             onChange= {e => setRating(e.target.value)}
             id="rating">
-                <option value="1" selected>1</option>
+                <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
@@ -90,7 +119,10 @@ function SubmitForm ({bathroomLatLng}) {
             value={checkedShowers} 
             onChange={handleChangeShowers}/>
 
-          <button type="submit" className="submitButton">
+          <button 
+            type="submit" 
+            className="submitButton"
+            onClick={submitBathroom}>
             Add Bathroom
           </button>
         </form>

@@ -59,6 +59,7 @@ app.get('/bathroom/:_id', (req, res) => {
 // GET by position object
 app.get('/bathroom/position', (req, res) => {
     console.log('Received GET request by position.');
+    res.set('Access-Control-Allow-Origin', 'https://localhost:3000');
     bathroomModel.findBathrooms({position: req.param.position})
     .then(result => {
         if (result != null) {

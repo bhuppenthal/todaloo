@@ -111,7 +111,7 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
             bathrooms.map((bathroom, i) => (
               <div key={i}>
               <Marker position={{lat: bathroom.position.lat, lng: bathroom.position.lng}} onClick={markerClick}/>
-              </>
+              </div>
               
             ))};
 

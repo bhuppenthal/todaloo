@@ -45,33 +45,6 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
 
   // Fires when the Marker component is clicked on
   const markerClick = async (e) => {
-<<<<<<< HEAD
-    console.log("Registered a marker click.")
-    // for now, display information above the map
-    //Event: MouseMapEvent
-    // call controller with latlng data
-    const url = new URL("https://localhost:3000/bathroom/position");
-    const params = {lat: e.latLng.lat(), lng: e.latLng.lng()};
-    url.search = new URLSearchParams(params).toString();
-
-    console.log(url);
-    
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': "*",
-        'Access-Control-Allow-Methods': 'GET'
-      },
-    });
-    // display results
-    console.log(response);
-
-    // future improvement: need a state variable to toggle between showing an info window and 
-    // a marker when the marker is clicked/info window is closed
-    // When marker clicked, Render an infowindow
-  }
-=======
       console.log("Registered a marker click.")
       let latitude = e.latLng.lat();
       let longitude = e.latLng.lng();
@@ -86,7 +59,6 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
       console.log(selectedBathroom);
       console.log(Object.keys(selectedBathroom).length);
     };
->>>>>>> 1e032eddfbacd6f3bd0f4ce3d83aacc2b9247c8c
 
   const windowClose = async (e) => {
     // change state variable for corresponding marker to true, corresponding info window to false
@@ -121,7 +93,7 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
   return (
       <>
         {showButton &&
-          <div>
+          <div className="container">
             <button onClick={buttonClick} className="button">Click to create the bathroom</button>
           </div>
         }

@@ -155,6 +155,12 @@ strong {}
 sub {}
 
 /*  ----- Class definitions -----  */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .button {
   font-family: Silkscreen;
 }
@@ -196,3 +202,4 @@ sub {}
     transform: rotate(360deg);
   }
 }
+

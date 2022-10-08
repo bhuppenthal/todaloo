@@ -196,14 +196,55 @@ app.delete('/user/:id', (req, res) => {
 // RATING ROUTES
 
 // create a new rating
-// app.post('/rating/', async (req, res) => {
-//     // check if user has already rated
-//     const userId = req.params.user_id;
-//     const user = await userModel.findUserById(user_id);
-//     const filter = {ratings: {$in: {_id: userId}}}
-// })
+app.post('/rating/', async (req, res) => {
+    // check if user has already rated
+    const userId = req.body.user_id;
+    const bathroomId = req.body.bathroom_id;
+    const filter = { _id: userId, }
+    let userRatings = await userModel.findUserRatings(filter);
+    // make userRatings just an array of the user's ratings, without their _id involved
+    userRatings = userRatings.ratings;
+    let hasAlreadyRated = false;
+    for (let i = 0; i < userRatings.length; i++) {
+        const rating = await ratingModel.findRatingById(userRatings[i])
+        if(rating.bathroomId === bathroomId){
+            hasAlreadyRated = true;
+        }
+    }
+    if (!hasAlreadyRated) {
+        ratingModel.createRating(
+            userId,
+            bathroomId,
+            req.body.rating
+            )
+            .then(result => {
+                const ratingId = result._id.toString();
+                userModel.addRatingToUser(userId, ratingId)
+                .then(result => {
+                    console.log(result)
+                    res.status(201).json(result);
+                })
+                .catch(error => {
+                    console.error(error)
+                    res.status(400).json({Error: 'POST rating failed adding rating to user.'});
+                })
+            })
+            .catch(error => {
+                console.error(error)
+                res.status(400).json({Error: 'POST rating failed.'});
+            })
+    } else {
+        res.status(400).json({Error: 'User has already rated this bathroom.'});
+    }
+    
+    // if(userRatings.length > 0){
+    //     res.status(400).json({Error: 'Rating already exists for bathroom.'})
+    // }
+    // const filter = {ratings: {$in: {_id: bathroomId}}}
+    // const userRatings = await userModel.findUsers(filter);
+    // console.log(userRatings)
+})
 
-// THIS IS WHERE YOU ARE ^^^
 
 // get all ratings by a given user
 app.get('/rating/:user_id', async (req, res) => {

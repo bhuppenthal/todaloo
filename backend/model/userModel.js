@@ -20,6 +20,17 @@ const findUsers = async (filter) => {
     return query.exec();
 }
 
+const findUserRatings = async(_id) => {
+    const query = User.findOne({ _id: _id}, 'ratings');    
+    return query.exec() 
+}
+
+const addRatingToUser = async(userId, ratingId) => {
+    const user = await findUserById(userId);
+    user.ratings.push(ratingId)
+    return user.save()
+}
+
 // get user by Id
 const findUserById = async (_id) => {
     const query = User.findById(_id);
@@ -54,4 +65,4 @@ const deleteUserByProperty = async (filter) => {
 }
 
 // export for use in controller
-export { createUser, findUsers, findUserById, deleteUserById, deleteUserByProperty }
+export { addRatingToUser, createUser, findUsers, findUserRatings, findUserById, deleteUserById, deleteUserByProperty }

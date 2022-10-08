@@ -61,3 +61,13 @@ content-type: application/json
 GET http://localhost:3000/bathroom/position/ HTTP/1.1
 content-type: application/json
 
+### create new rating
+POST http://localhost:3000/rating HTTP/1.1
+content-type: application/json
+
+{
+    "user_id": "634108d33df94ea709dc5a27",
+    "bathroom_id": "6340afbb30d358bfb45f0182",
+    "rating": 5
+}
+

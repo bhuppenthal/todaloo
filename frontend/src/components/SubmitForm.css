@@ -1,10 +1,60 @@
 .submit-form {
-    width: 250px;
-    height: 250px;
+    width: 400px;
+    height: 400px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    color: rgb(168, 21, 21);
+    color: black;
     margin:auto;
+    border-style: 2px solid black;
+    border-radius: 5px;
+    padding-bottom: 100px;
+  }
+
+.rating {
+    color:rgb(168, 21, 21);
+    padding:5px;
+    padding-top: 15px;
+    font:bold;
+}
+
+.select {
+
+    width: 300px;
+    padding: 5px 5px;
+    border: none;
+    border-radius: 10px;
+    background-color: #f1f1f1;
+    
+
+}
+
+.name{
+    padding-top: 15px;
+    padding-bottom: 5px;
+    color:rgb(168, 21, 21);
+}
+
+.text-box {
+    padding-top: 15px;
+    padding-bottom: 5px;
+    min-width: 300px;
+    padding: 5px 5px;
+    border: none;
+    border-radius: 2px;
+    color:black;
+    background-color: #f1f1f1;
+}
+
+.tags{
+    padding-top: 15px;
+    padding-bottom: 5px;
+    color:rgb(168, 21, 21)
+}
+
+.check-box {
+    
+    padding-bottom: 5px;
+    padding:5px;
     
   }

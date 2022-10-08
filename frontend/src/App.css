@@ -131,14 +131,15 @@ label {
 
 input {
   font-size: 115%;
-  padding: 2%;
+  /* padding: 2%; */
   max-width: 200px;
+  margin:auto;
 }
 
 button {
   font-size: 115%;
-  margin: 0% 2%;
   padding: 2%;
+  margin:auto;
 }
 
 abbr {}

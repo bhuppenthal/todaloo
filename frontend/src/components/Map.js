@@ -8,7 +8,7 @@ import { RiHome4Fill, RiHandCoinFill } from "react-icons/ri";
 
 import StarRating from '../components/StarRating';
 
-function Map ({bathroomLatLng, setBathroomLatLng}) {
+function Map ({bathroomLatLng, setBathroomLatLng, user}) {
 
   const [bathrooms, setBathrooms] = useState([]);
   const [showButton, setShowButton] = useState(false);
@@ -16,6 +16,7 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
 
   const navigate = useNavigate();
   console.log(bathroomLatLng); // do not remove this statement, it is a load bearing console log
+  console.log(user);
 
   // Retrieve all the bathrooms in db
   const loadBathrooms = async () => {

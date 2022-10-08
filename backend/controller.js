@@ -154,20 +154,18 @@ app.post('/login/', async (req, res) => {
     const userList = await userModel.findUsers(filter)
     .then( userList => {
         const user = userList[0];
-        // TODO: i had to put this bcrypt command inside of the .then to actually be able to send a response.
-        // however this seems to have broken bcrypt
-        // i cannot place an await statement in front
-        // but it will accept any password as long as the username matches a db entry
-        const validPassword = bcrypt.compare(password, user.password);
-        if (validPassword) {
-            console.log("login successful");
-            console.log(user);
-            req.session.user_id = user._id;
-            res.status(201).json(user);
-        } else {
-            console.log("login failed");
-            res.status(400).json(user);
-        }
+        const validPassword = bcrypt.compare(password, user.password)
+        .then( validPassword => {
+            if (validPassword) {
+                console.log("login successful");
+                console.log(user);
+                req.session.user_id = user._id;
+                res.status(201).json(user);
+            } else {
+                console.log("login failed");
+                res.status(400).json(user);
+            }
+        });
     })
     .catch( error => {
         console.log("login failed");

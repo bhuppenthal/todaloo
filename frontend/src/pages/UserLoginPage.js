@@ -1,10 +1,14 @@
 import React from 'react';
 import { useState } from 'react';
 
-function NewUserLogin ({user, setUser}) {
+function UserLogin ({user, setUser}) {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
+    console.log(user); // also load bearing.
+    //TODO: why are the state variables not actually initializing properly
+    // they seem to need to be referenced once before they can actually be changed?
 
     const submitUserLogin = async (e) => {
         const userCredentials = {
@@ -26,10 +30,10 @@ function NewUserLogin ({user, setUser}) {
     if (response.status === 201) {
         alert("Login successful!");
         setUser({username: username, loggedIn: true});
-        //TODO: Similarly to previous examples, when setUser is first called, it doesn't actually set loggedIn to true.
-        // it will only set it to true on the second successful log in.
         console.log("User successfully signed in.");
         console.log(user);
+        //TODO: this will change the user state variable, but when the user navigates to any other page, the variable is reset
+        // but you should see that on login after its successful the navigation links do change
     } else {
         alert(`Failed to login, status code = ${response.status}`)
     }
@@ -66,4 +70,4 @@ function NewUserLogin ({user, setUser}) {
     );
 };
 
-export default NewUserLogin;
+export default UserLogin;

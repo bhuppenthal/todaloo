@@ -7,6 +7,17 @@ function UserProfilePage ({user, setUser}) {
   const [ratings, setRatings] = useState({});
   const [ratingToUpdate, setRatingToUpdate] = useState({});
 
+  // checks local storage for a user and if found, sets user to the stored user
+  useEffect(() => {
+    console.log("Rendering UserProfilePage.");
+    const loggedInUser = localStorage.getItem("user");
+    if (loggedInUser) {
+      const foundUser = JSON.parse(loggedInUser);
+      setUser(foundUser);
+      loadRatings();
+    }
+  }, []);
+
   // Retrieve all ratings associated with the saved user
   const loadRatings = async () => {
     let url = new URL("https://localhost:3000");
@@ -21,16 +32,6 @@ function UserProfilePage ({user, setUser}) {
     setRatings(ratings);
   }
 
-    // checks local storage for a user and if found, sets user to the stored user
-  useEffect(() => {
-      console.log("Rendering UserProfilePage.");
-      const loggedInUser = localStorage.getItem("user");
-      if (loggedInUser) {
-        const foundUser = JSON.parse(loggedInUser);
-        setUser(foundUser);
-        loadRatings();
-      }
-    }, []);
 
     return (
         <RatingTable setRatingToUpdate={setRatingToUpdate}/>

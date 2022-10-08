@@ -108,8 +108,8 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
             
             {// for loop to create a new state variable and state function for each marker component
             // showMarker, setShowMarker = useState()
-            bathrooms.map((bathroom) => (
-              <>
+            bathrooms.map((bathroom, i) => (
+              <div key={i}>
               <Marker position={{lat: bathroom.position.lat, lng: bathroom.position.lng}} onClick={markerClick}/>
               </>
               

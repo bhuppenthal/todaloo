@@ -236,13 +236,21 @@ app.post('/rating/', async (req, res) => {
     } else {
         res.status(400).json({Error: 'User has already rated this bathroom.'});
     }
-    
-    // if(userRatings.length > 0){
-    //     res.status(400).json({Error: 'Rating already exists for bathroom.'})
-    // }
-    // const filter = {ratings: {$in: {_id: bathroomId}}}
-    // const userRatings = await userModel.findUsers(filter);
-    // console.log(userRatings)
+})
+
+// update given rating
+app.put('/rating/', async (req, res) => {
+    const ratingId = req.body.rating_id
+    const newRating = req.body.new_rating
+    ratingModel.updateRating(ratingId, newRating)
+    .then(result => {
+        console.log(result)
+        res.status(201).json(result);
+    })
+    .catch(error => {
+        console.error(error)
+        res.status(400).json({Error: 'Failed to update rating.'});
+    })
 })
 
 

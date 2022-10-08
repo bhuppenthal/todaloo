@@ -34,5 +34,11 @@ const createRating = async (user, bathroom, ratingActual) => {
     return rating.save();
 }
 
+const updateRating = async (ratingId, newRating) => {
+    const rating = await findRatingById(ratingId)
+    rating.rating = newRating
+    return rating.save();
+}
+
 // export for use in controller file
-export { createRating, findRatings, findRatingById }
+export { createRating, findRatings, findRatingById, updateRating }

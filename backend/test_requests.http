@@ -71,3 +71,12 @@ content-type: application/json
     "rating": 5
 }
 
+### update given rating
+PUT  http://localhost:3000/rating HTTP/1.1
+content-type: application/json
+
+{
+    "rating_id": "63419f63f5b875989681a1fd",
+    "new_rating": "2"
+}
+

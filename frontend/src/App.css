@@ -18,14 +18,26 @@ body {
 }
 
 /* ----- Anchors ----- Text links */
-a {}
+a {
+  padding: 0% 2%;
+  margin: 2px auto;
+  border-radius: 20px;
+  text-decoration: none;
+  color:black;
+}
 a:link {}
-a:hover {}
+a:hover {
+  color: whitesmoke;
+  background-color: black;
+}
 a:active {}
 a:visited {}
 
 /*  ----- Navigation ----- Override text links for navigation only.  */
 nav {
+  font-family:'Silkscreen';
+  font-size: 15px;
+  text-align: center;
 }
 nav a {
 }
@@ -157,11 +169,12 @@ strong {}
 sub {}
 
 /*  ----- Class definitions -----  */
-<<<<<<< HEAD
+.navbar {
+  margin:auto;
+}
 .inline {
   display:"inline";
 }
-=======
 .container {
   min-height: 100px;
   display: flex;
@@ -169,7 +182,6 @@ sub {}
   align-items: center;
 }
 
->>>>>>> e956fe7cb94bba1b46b02bb4e7ead8ed88b7ea28
 .button {
   font-family: Silkscreen;
 }

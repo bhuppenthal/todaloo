@@ -14,6 +14,7 @@
 /*  ----- Viewport ----- elements inherited by all remaining elements ----- */
 body {
   font-family: 'Roboto Mono';
+  background-color: whitesmoke;
 }
 
 /* ----- Anchors ----- Text links */
@@ -155,6 +156,9 @@ strong {}
 sub {}
 
 /*  ----- Class definitions -----  */
+.inline {
+  display:"inline";
+}
 .button {
   font-family: Silkscreen;
 }

@@ -1,10 +1,12 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { GoogleMap, useLoadScript, Marker, InfoWindow, Autocomplete } from '@react-google-maps/api';
+import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import { useNavigate } from "react-router-dom";
 
-//import BathroomMarker from '../components/BathroomMarker';
-import BathroomButton from '../components/BathroomButton';
+import { BiBody, BiHandicap, BiWater } from "react-icons/bi";
+import { RiHome4Fill, RiHandCoinFill } from "react-icons/ri";
+
+import StarRating from '../components/StarRating';
 
 function Map ({bathroomLatLng, setBathroomLatLng}) {
 
@@ -22,7 +24,7 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
       setBathrooms(bathrooms);
   }
 
-  // Fires when the Map component is clicked on
+  // Fires when the Map component is clicked
   const mapClick = async (e) => {
     console.log("Registered a map click.");
     if (Object.keys(selectedBathroom).length === 0) {
@@ -30,43 +32,34 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
       setShowButton(!showButton);
     } else {
       // selecting anywhere on the map deselects the bathroom
-      console.log("deselecting the bathroom:");
       setSelectedBathroom({});
-      console.log(selectedBathroom);
-      console.log(Object.keys(selectedBathroom).length);
     }
   }
 
-  // Button on click should perform map on click events
+  // Fires when the Button component is clicked
   const buttonClick = async (e) => {
     console.log("Registered a button click.")
     navigate("/create-bathroom");
   }
 
-  // Fires when the Marker component is clicked on
+  // Fires when a Marker component is clicked
   const markerClick = async (e) => {
       console.log("Registered a marker click.");
-      // destroy showing the selectedBathroom
+      // destroy button for adding a new bathroom
       setShowButton(false);
 
+      //iterate through bathrooms until finding the correct bathroom
       let latitude = e.latLng.lat();
       let longitude = e.latLng.lng();
-      //iterate through bathrooms until finding the index that matches e.latLng.lng() etc
       for(let i = 0; i < bathrooms.length; i++) {
-        if (bathrooms[i].position.lat == latitude && bathrooms[i].position.lng == longitude){
+        if (bathrooms[i].position.lat === latitude && bathrooms[i].position.lng === longitude){
           setSelectedBathroom(bathrooms[i]);
           break;
         }
       }
-      console.log("selectedBathroom and length:");
+      console.log("Selected bathroom:");
       console.log(selectedBathroom);
-      console.log(Object.keys(selectedBathroom).length);
     };
->>>>>>> 1e032eddfbacd6f3bd0f4ce3d83aacc2b9247c8c
-
-  const windowClose = async (e) => {
-    // change state variable for corresponding marker to true, corresponding info window to false
-  }
 
   // Load the bathrooms, used when the component is first mounted
   useEffect(() => {
@@ -104,12 +97,37 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
         {(Object.keys(selectedBathroom).length !== 0) &&
           <div>
             <p>{selectedBathroom.name}</p>
-            <p>{selectedBathroom.rating}</p>
-            <p>{selectedBathroom.tags.accessible}</p>
-            <p>{selectedBathroom.tags.free}</p>
-            <p>{selectedBathroom.tags.genderNeutral}</p>
-            <p>{selectedBathroom.tags.changingStation}</p>
-            <p>{selectedBathroom.tags.showers}</p>
+            <StarRating rating={selectedBathroom.rating}/>
+            {(selectedBathroom.tags.accessible) &&
+              <div>
+                <BiHandicap/>
+                <p style={{display: 'inline'}}>Accessible!</p>
+              </div>
+            }
+            {(selectedBathroom.tags.free) &&
+              <div>
+                <RiHandCoinFill />
+                <p style={{display: 'inline'}}>Free!</p>
+              </div>
+            }
+            {(selectedBathroom.tags.genderNeutral) &&
+              <div>
+                <BiBody/>
+                <p style={{display: 'inline'}}>Gender Neutral!</p>
+              </div>
+            }
+            {(selectedBathroom.tags.changingStation) &&
+              <div>
+                <RiHome4Fill/>
+                <p style={{display: 'inline'}}>Changing Station!</p>
+              </div>
+            }
+            {(selectedBathroom.tags.shower) &&
+              <div>
+                <BiWater />
+                <p style={{display: 'inline'}}>Shower!</p>
+              </div>
+            }
           </div>
         }
         <GoogleMap
@@ -118,11 +136,9 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
             zoom={13}
             onClick={mapClick}>
             
-            {// for loop to create a new state variable and state function for each marker component
-            // showMarker, setShowMarker = useState()
-            bathrooms.map((bathroom) => (
+            {bathrooms.map((bathroom, i) => (
               <>
-              <Marker position={{lat: bathroom.position.lat, lng: bathroom.position.lng}} onClick={markerClick}/>
+              <Marker position={{lat: bathroom.position.lat, lng: bathroom.position.lng}} onClick={markerClick} key={i}/>
               </>
             ))};
 

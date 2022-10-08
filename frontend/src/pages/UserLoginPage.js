@@ -14,7 +14,7 @@ function NewUserLogin () {
 
     console.log(userCredentials)
 
-    const response = await fetch('/register', {
+    const response = await fetch('/login', {
         method: 'POST',
         body: JSON.stringify(userCredentials),
         headers: {

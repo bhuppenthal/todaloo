@@ -7,6 +7,7 @@ import { useState } from 'react';
 import MapView from './pages/MapView';
 import CreateBathroom from './pages/CreateBathroom';
 import NewUserPage from './pages/NewUserPage';
+import UserLoginPage from './pages/UserLoginPage';
 
 // importing components
 import Header from "./components/Header.js";
@@ -34,7 +35,7 @@ function App() {
         <Route path="/" element={<MapView bathroomLatLng={bathroomLatLng} setBathroomLatLng={setBathroomLatLng}/>}></Route>
         <Route path="/create-bathroom" element={<CreateBathroom bathroomLatLng={bathroomLatLng}/>}></Route>
         <Route path="/register" element={<NewUserPage/>}></Route>
-        <Route path="/login"></Route>
+        <Route path="/login" element={<UserLoginPage user={user} setUser={setUser}></UserLoginPage>}></Route>
 
       </Routes>
     </Router>

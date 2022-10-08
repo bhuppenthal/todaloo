@@ -119,16 +119,17 @@ app.post('/bathroom', (req, res) => {
 // POST to create a new user
 app.post('/register/', (req, res) => {
     console.log('Received POST request to register.');
+    console.log(req.body);
 
     // check if the bathroom already exists
-    userModel.findUsers({name: req.body.name})
+    userModel.findUsers({name: req.body.username})
     .then(result => {
         console.log(result);
         if (result.length !== 0) {
             res.status(400).json({Error: 'Username already exists.'});
         } else {
             userModel.createUser(
-                req.body.name,
+                req.body.username,
                 req.body.password
                 )
             .then(result => {
@@ -146,18 +147,32 @@ app.post('/register/', (req, res) => {
 
 // user login
 app.post('/login/', async (req, res) => {
+    console.log('Received post request to /login');
     const { username, password } = req.body;
     console.log(username)
     const filter = {name: username}
-    const userList = await userModel.findUsers(filter);
-    // findUsers returns a list of results, so take only result from list
-    const user = userList[0]
-    const validPassword = await bcrypt.compare(password, user.password)
-    if (validPassword) {
-        req.session.user_id = user._id
-    } else {
-        console.log("login failed")
-    }
+    const userList = await userModel.findUsers(filter)
+    .then( userList => {
+        const user = userList[0];
+        // TODO: i had to put this bcrypt command inside of the .then to actually be able to send a response.
+        // however this seems to have broken bcrypt
+        // i cannot place an await statement in front
+        // but it will accept any password as long as the username matches a db entry
+        const validPassword = bcrypt.compare(password, user.password);
+        if (validPassword) {
+            console.log("login successful");
+            console.log(user);
+            req.session.user_id = user._id;
+            res.status(201).json(user);
+        } else {
+            console.log("login failed");
+            res.status(400).json(user);
+        }
+    })
+    .catch( error => {
+        console.log("login failed");
+        res.status(400).json(userList[0])
+    });
 })
 
 // user log out

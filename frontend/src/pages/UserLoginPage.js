@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 
 function NewUserLogin ({user, setUser}) {
 
@@ -11,8 +12,8 @@ function NewUserLogin ({user, setUser}) {
             password: password
         };
     
-
-    console.log(userCredentials)
+    console.log("user credentials: ");
+    console.log(userCredentials);
 
     const response = await fetch('/login', {
         method: 'POST',
@@ -25,6 +26,8 @@ function NewUserLogin ({user, setUser}) {
     if (response.status === 201) {
         alert("Login successful!");
         setUser({username: username, loggedIn: true});
+        //TODO: Similarly to previous examples, when setUser is first called, it doesn't actually set loggedIn to true.
+        // it will only set it to true on the second successful log in.
         console.log("User successfully signed in.");
         console.log(user);
     } else {

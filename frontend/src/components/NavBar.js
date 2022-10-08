@@ -1,6 +1,8 @@
 import React from 'react';
 
 const NavBar = ({user, setUser}) => {
+    //TODO: sure seems like these links are just text, but i needed to get the user login
+    // state fixed first so i didnt get around to fixing this, sorry :(
     return (
         <div>
             {(user.loggedIn === true) &&

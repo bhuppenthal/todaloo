@@ -12,11 +12,12 @@ function NewUserRegister () {
             password: password
         };
     
-        console.log(newUser)
+        console.log("printing new user:");
+        console.log(JSON.stringify(newUser));
 
         const response = await fetch('/register', {
             method: 'POST',
-            body: JSON.stringify(newUser),
+            body: JSON.stringify({username: newUser.username, password: newUser.password}),
             headers: {
                 'Content-Type': 'application/json',
             },

@@ -8,7 +8,7 @@ import { RiHome4Fill, RiHandCoinFill } from "react-icons/ri";
 
 import StarRating from '../components/StarRating';
 
-function Map ({bathroomLatLng, setBathroomLatLng, user}) {
+function Map ({bathroomLatLng, setBathroomLatLng, user, setUser}) {
 
   const [bathrooms, setBathrooms] = useState([]);
   const [showButton, setShowButton] = useState(false);
@@ -16,6 +16,17 @@ function Map ({bathroomLatLng, setBathroomLatLng, user}) {
 
   const navigate = useNavigate();
   console.log(bathroomLatLng); // do not remove this statement, it is a load bearing console log
+  
+  // checks local storage for a user and if found, sets user to the stored user
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("user");
+    if (loggedInUser) {
+      const foundUser = JSON.parse(loggedInUser);
+      setUser(foundUser);
+    }
+  }, []);
+
+  console.log("USER ON THIS PAGE:");
   console.log(user);
 
   // Retrieve all the bathrooms in db

@@ -10,13 +10,13 @@ function UserProfilePage ({user, setUser}) {
   // Retrieve all ratings associated with the saved user
   const loadRatings = async () => {
     let url = new URL("https://localhost:3000");
-    url.searchParams.append({username: user.username});
+    url.searchParams.append("username", user.username);
 
     console.log("Attempting to load ratings. URL:");
     console.log(user);
     console.log(url);
 
-    const response = await fetch(url, {method: 'GET'});
+    const response = await fetch(url,{method: 'GET'});
     const ratings = await response.json();
     setRatings(ratings);
   }

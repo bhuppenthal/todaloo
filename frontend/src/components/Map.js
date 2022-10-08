@@ -45,7 +45,10 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
 
   // Fires when the Marker component is clicked on
   const markerClick = async (e) => {
-      console.log("Registered a marker click.")
+      console.log("Registered a marker click.");
+      // destroy showing the selectedBathroom
+      setShowButton(false);
+
       let latitude = e.latLng.lat();
       let longitude = e.latLng.lng();
       //iterate through bathrooms until finding the index that matches e.latLng.lng() etc

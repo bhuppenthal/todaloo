@@ -10,25 +10,31 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
 
   const [bathrooms, setBathrooms] = useState([]);
   const [showButton, setShowButton] = useState(false);
+  const [selectedBathroom, setSelectedBathroom] = useState({});
+
   const navigate = useNavigate();
   console.log(bathroomLatLng); // do not remove this statement, it is a load bearing console log
 
   // Retrieve all the bathrooms in db
   const loadBathrooms = async () => {
-      console.log("Entered load bathrooms")
       const response = await fetch('http://localhost:3000/bathroom', { method: 'GET'});
       const bathrooms = await response.json();
       setBathrooms(bathrooms);
-      console.log(bathrooms.map(bathroom => bathroom.position));
   }
 
   // Fires when the Map component is clicked on
   const mapClick = async (e) => {
     console.log("Registered a map click.");
-    setBathroomLatLng({lat: e.latLng.lat(), lng: e.latLng.lng()});
-    console.log(bathroomLatLng);
-    setShowButton(!showButton);
-    console.log(showButton);
+    if (Object.keys(selectedBathroom).length === 0) {
+      setBathroomLatLng({lat: e.latLng.lat(), lng: e.latLng.lng()});
+      setShowButton(!showButton);
+    } else {
+      // selecting anywhere on the map deselects the bathroom
+      console.log("deselecting the bathroom:");
+      setSelectedBathroom({});
+      console.log(selectedBathroom);
+      console.log(Object.keys(selectedBathroom).length);
+    }
   }
 
   // Button on click should perform map on click events
@@ -39,6 +45,7 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
 
   // Fires when the Marker component is clicked on
   const markerClick = async (e) => {
+<<<<<<< HEAD
     console.log("Registered a marker click.")
     // for now, display information above the map
     //Event: MouseMapEvent
@@ -64,18 +71,31 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
     // a marker when the marker is clicked/info window is closed
     // When marker clicked, Render an infowindow
   }
+=======
+      console.log("Registered a marker click.")
+      let latitude = e.latLng.lat();
+      let longitude = e.latLng.lng();
+      //iterate through bathrooms until finding the index that matches e.latLng.lng() etc
+      for(let i = 0; i < bathrooms.length; i++) {
+        if (bathrooms[i].position.lat == latitude && bathrooms[i].position.lng == longitude){
+          setSelectedBathroom(bathrooms[i]);
+          break;
+        }
+      }
+      console.log("selectedBathroom and length:");
+      console.log(selectedBathroom);
+      console.log(Object.keys(selectedBathroom).length);
+    };
+>>>>>>> 1e032eddfbacd6f3bd0f4ce3d83aacc2b9247c8c
 
   const windowClose = async (e) => {
-    // toggle between marker open and information window open
-    // When closed, render the marker again
+    // change state variable for corresponding marker to true, corresponding info window to false
   }
 
-  //Load the bathrooms, used when the component is first mounted
+  // Load the bathrooms, used when the component is first mounted
   useEffect(() => {
     console.log("Loaded the page.");
     loadBathrooms();
-    console.log(bathrooms);
-    console.log(bathroomLatLng);
   }, []);
 
 
@@ -97,14 +117,25 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
   if (loadError) return "Error"; 
   if (!isLoaded) return "Loading...";
 
-  console.log(`HI you are in map.js here are the BRs: ${bathrooms}`)
+  console.log(bathrooms)
   return (
       <>
         {showButton &&
           <div>
             <button onClick={buttonClick} className="button">Click to create the bathroom</button>
           </div>
-        } 
+        }
+        {(Object.keys(selectedBathroom).length !== 0) &&
+          <div>
+            <p>{selectedBathroom.name}</p>
+            <p>{selectedBathroom.rating}</p>
+            <p>{selectedBathroom.tags.accessible}</p>
+            <p>{selectedBathroom.tags.free}</p>
+            <p>{selectedBathroom.tags.genderNeutral}</p>
+            <p>{selectedBathroom.tags.changingStation}</p>
+            <p>{selectedBathroom.tags.showers}</p>
+          </div>
+        }
         <GoogleMap
             mapContainerStyle={containerStyle}
             center={center}
@@ -113,10 +144,10 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
             
             {// for loop to create a new state variable and state function for each marker component
             // showMarker, setShowMarker = useState()
-            bathrooms.map((bathroom, i) => (
-              <div key={i}>
+            bathrooms.map((bathroom) => (
+              <>
               <Marker position={{lat: bathroom.position.lat, lng: bathroom.position.lng}} onClick={markerClick}/>
-              </div>
+              </>
             ))};
 
             {showButton &&

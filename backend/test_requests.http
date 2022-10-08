@@ -1,0 +1,63 @@
+### get bathrooms
+GET http://localhost:3000/bathroom HTTP/1.1
+content-type: application/json
+
+### create bathroom 1
+POST http://localhost:3000/bathroom HTTP/1.1
+content-type: application/json
+
+{
+    "position": {"lat": 44.567132, "lng": -123.272541},
+    "rating": 5,
+    "name": "OSU Bathroom",
+    "tags": {"free": true, "gender-neutral": false, "disability friendly": true, "changing stations": false}
+}
+
+### create bathroom 2
+POST http://localhost:3000/bathroom HTTP/1.1
+content-type: application/json
+
+{
+    "position": {"lat": 44.554297, "lng": -123.274483},
+    "rating": 3,
+    "name": "OSU Bathroom 2",
+    "tags": {"free": true, "gender-neutral": true, "disability friendly": true, "changing stations": false}
+}
+
+### create bathroom 3
+POST http://localhost:3000/bathroom HTTP/1.1
+content-type: application/json
+
+{
+    "position": {"lat": 44.550146, "lng": -123.312394},
+    "rating": 1,
+    "name": "OSU Bathroom 2",
+    "tags": {"free": false, "gender-neutral": false, "disability friendly": false, "changing stations": false}
+}
+
+### create user 1
+POST http://localhost:3000/register HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Testguy",
+    "password": "12345"
+}
+
+### user login
+POST http://localhost:3000/login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "Testguy",
+    "password": "12345"
+}
+
+### delete user by id
+DELETE http://localhost:3000/user/634065f0fb02dd148db86344 HTTP/1.1
+content-type: application/json
+
+### get by position
+GET http://localhost:3000/bathroom/position/ HTTP/1.1
+content-type: application/json
+

@@ -39,26 +39,27 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
 
   // Fires when the Marker component is clicked on
   const markerClick = async (e) => {
-    console.log("Registered a marker click.")
+    console.log(e.latLng)
+
     // for now, display information above the map
     //Event: MouseMapEvent
     // call controller with latlng data
-    const url = new URL("https://localhost:3000/bathroom/position");
-    const params = {lat: e.latLng.lat(), lng: e.latLng.lng()};
-    url.search = new URLSearchParams(params).toString();
+    // const url = new URL("https://localhost:3000/bathroom/position");
+    // const params = {lat: e.latLng.lat(), lng: e.latLng.lng()};
+    // url.search = new URLSearchParams(params).toString();
 
-    console.log(url);
+    // console.log(url);
     
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': "*",
-        'Access-Control-Allow-Methods': 'GET'
-      },
-    });
-    // display results
-    console.log(response);
+    // const response = await fetch(url, {
+    //   method: 'GET',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'Access-Control-Allow-Origin': "*",
+    //     'Access-Control-Allow-Methods': 'GET'
+    //   },
+    // });
+    // // display results
+    // console.log(response);
 
     // future improvement: need a state variable to toggle between showing an info window and 
     // a marker when the marker is clicked/info window is closed
@@ -113,10 +114,10 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
             
             {// for loop to create a new state variable and state function for each marker component
             // showMarker, setShowMarker = useState()
-            bathrooms.map((bathroom) => (
-              <>
+            bathrooms.map((bathroom, i) => (
+              <div key={i}>
               <Marker position={{lat: bathroom.position.lat, lng: bathroom.position.lng}} onClick={markerClick}/>
-              </>
+              </div>
             ))};
 
             {showButton &&

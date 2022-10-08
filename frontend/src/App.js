@@ -34,7 +34,7 @@ function App() {
     <Router>
       <Routes>
 
-        <Route path="/" element={<MapView bathroomLatLng={bathroomLatLng} setBathroomLatLng={setBathroomLatLng} user={user}/>}></Route>
+        <Route path="/" element={<MapView bathroomLatLng={bathroomLatLng} setBathroomLatLng={setBathroomLatLng} user={user} setUser={setUser}/>}></Route>
         <Route path="/create-bathroom" element={<CreateBathroom bathroomLatLng={bathroomLatLng}/>}></Route>
         <Route path="/register" element={<NewUserPage/>}></Route>
         <Route path="/login" element={<UserLoginPage user={user} setUser={setUser}></UserLoginPage>}></Route>

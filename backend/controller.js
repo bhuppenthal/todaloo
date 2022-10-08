@@ -221,6 +221,8 @@ app.post('/rating/', async (req, res) => {
                 const ratingId = result._id.toString();
                 userModel.addRatingToUser(userId, ratingId)
                 .then(result => {
+                    // update bathrooms aggregate rating
+                    bathroomModel.updateAggregateRating(bathroomId)
                     console.log(result)
                     res.status(201).json(result);
                 })
@@ -237,6 +239,8 @@ app.post('/rating/', async (req, res) => {
         res.status(400).json({Error: 'User has already rated this bathroom.'});
     }
 })
+
+
 
 // update given rating
 app.put('/rating/', async (req, res) => {

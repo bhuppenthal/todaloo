@@ -1,3 +1,4 @@
+import React from 'react';
 import { RiStarFill, RiStarLine } from "react-icons/ri";
 
 const StarRating = ({rating}) => {

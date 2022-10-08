@@ -11,22 +11,21 @@ function NewUserRegister () {
             password: password
         };
     
+        console.log(newUser)
 
-    console.log(newUser)
+        const response = await fetch('/register', {
+            method: 'POST',
+            body: JSON.stringify(newUser),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
 
-    const response = await fetch('/register', {
-        method: 'POST',
-        body: JSON.stringify(newUser),
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-
-    if (response.status === 201) {
-        alert("Login successful!");
-    } else {
-        alert(`Failed to login, status code = ${response.status}`)
-    }
+        if (response.status === 201) {
+            alert("Login successful!");
+        } else {
+            alert(`Failed to login, status code = ${response.status}`)
+        }
     };
 
     return (

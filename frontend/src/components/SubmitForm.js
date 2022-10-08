@@ -19,7 +19,6 @@ function SubmitForm ({bathroomLatLng}) {
 
     const [rating, setRating] = useState('');
     const [name, setName] = useState('');
-    const [tags, setTag] = useState('');
     const [checkedAccessible, setCheckedAccessible] = React.useState(false);
     const [checkedFree, setCheckedFree] = React.useState(false);
     const [checkedGenderNeutral, setCheckedGenderNeutral] = React.useState(false);

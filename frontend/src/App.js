@@ -21,6 +21,7 @@ function App() {
 
     <Router>
       <Routes>
+
         <Route path="/" element={<MapView bathroomLatLng={bathroomLatLng} setBathroomLatLng={setBathroomLatLng}/>}></Route>
         <Route path= "/create-bathroom" element={<CreateBathroom bathroomLatLng={bathroomLatLng}/>}></Route>
 

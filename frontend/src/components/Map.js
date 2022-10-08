@@ -62,6 +62,7 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
       console.log(selectedBathroom);
       console.log(Object.keys(selectedBathroom).length);
     };
+>>>>>>> 1e032eddfbacd6f3bd0f4ce3d83aacc2b9247c8c
 
   const windowClose = async (e) => {
     // change state variable for corresponding marker to true, corresponding info window to false

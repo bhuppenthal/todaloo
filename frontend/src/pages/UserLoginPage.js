@@ -1,36 +1,36 @@
 import React from 'react';
 
-function NewUserRegister () {
+function NewUserLogin () {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const submitNewUser = async (e) => {
-        const newUser = {
+    const submitUserLogin = async (e) => {
+        const userCredentials = {
             username: username,
             password: password
         };
     
 
-    console.log(newUser)
+    console.log(userCredentials)
 
     const response = await fetch('/register', {
         method: 'POST',
-        body: JSON.stringify(newUser),
+        body: JSON.stringify(userCredentials),
         headers: {
             'Content-Type': 'application/json',
         },
     });
 
     if (response.status === 201) {
-        alert("Registration successful!");
+        alert("Login successful!");
     } else {
-        alert(`Failed to register, status code = ${response.status}`)
+        alert(`Failed to login, status code = ${response.status}`)
     }
     };
 
     return (
-        <div className="register-title"> 
+        <div className="login-title"> 
          
          <form onSubmit={(e) => {e.preventDefault();}}>
             <label>Enter Username</label>
@@ -52,12 +52,12 @@ function NewUserRegister () {
             <button
                 type="submit"
                 className="button"
-                onClick={submitNewUser}>
-                Register
+                onClick={submitUserLogin}>
+                Login
             </button>
          </form>
         </div>
     );
 };
 
-export default NewUserRegister;
+export default NewUserLogin;

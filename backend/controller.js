@@ -1,12 +1,13 @@
 import express from 'express';
-import * as bathroomModel from './model/bathroomModel.js';
-import * as userModel from './model/userModel.js';
-import * as ratingModel from './model/ratingModel.js';
 import 'dotenv/config';
 import cors from 'cors';
 import bcrypt from 'bcrypt';
 import cookieParser from 'cookie-parser';
 import expressSession from 'express-session';
+
+import * as bathroomModel from './model/bathroomModel.js';
+import * as userModel from './model/userModel.js';
+import * as ratingModel from './model/ratingModel.js';
 
 // create express instance, set the listening port
 const PORT = process.env.PORT;

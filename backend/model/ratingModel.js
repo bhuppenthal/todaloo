@@ -24,12 +24,12 @@ const findRatingById = async (_id) => {
     return query.exec();
 }
 
-const createRating = async (user, bathroom, rating) => {
-    const Rating = new Rating({
+const createRating = async (user, bathroom, ratingActual) => {
+    const rating = new Rating({
         userId: user,
         bathroomId: bathroom,
         date: new Date(),
-        rating: rating
+        rating: ratingActual
     })
     return rating.save();
 }

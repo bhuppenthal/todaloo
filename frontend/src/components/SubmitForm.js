@@ -7,7 +7,7 @@ function SubmitForm ({bathroomLatLng}) {
 
     const Checkbox = ({ label, value, onChange }) => {
         return(
-            <label>
+            <label className='check-box'>
                 <input type="checkbox" checked={value} onChange={onChange} />
                 {label}
             </label>
@@ -19,7 +19,6 @@ function SubmitForm ({bathroomLatLng}) {
 
     const [rating, setRating] = useState('');
     const [name, setName] = useState('');
-    const [tags, setTag] = useState('');
     const [checkedAccessible, setCheckedAccessible] = React.useState(false);
     const [checkedFree, setCheckedFree] = React.useState(false);
     const [checkedGenderNeutral, setCheckedGenderNeutral] = React.useState(false);
@@ -79,8 +78,9 @@ function SubmitForm ({bathroomLatLng}) {
         
         <div className = "submit-form">
         <form onSubmit={(e) => { e.preventDefault();}}>
-          <label>Rating</label>
+          <label className='rating'>Rating</label>
           <select required
+            className='select'
             value={rating}
             onChange= {e => setRating(e.target.value)}
             id="rating">
@@ -91,15 +91,16 @@ function SubmitForm ({bathroomLatLng}) {
                 <option value="4">4</option>
                 <option value="5">5</option>
           </select>
-          <label>Name</label>
+          <label className='name'>Name</label>
           <input required
+            className='text-box'
             type="text"
             placeholder="Name of location"
             value={name}
             id="name"
             onChange={(e) => setName(e.target.value)}
           />
-          <label>Tags</label>
+          <label className='tags'>Tags</label>
           <Checkbox
             label="Accessible"
             value={checkedAccessible} 

@@ -7,9 +7,9 @@ function MapView ({bathroomLatLng, setBathroomLatLng, user, setUser}) {
     return (
         <>
         <Map bathroomLatLng={bathroomLatLng} 
-            setBathroomLatLng={setBathroomLatLng}
-            user={user}
-            setUser={setUser}/>
+             setBathroomLatLng={setBathroomLatLng}
+             user={user}
+             setUser={setUser}/>
         </>
     );
 };

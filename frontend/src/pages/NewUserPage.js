@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 
 function NewUserRegister () {
 
@@ -20,14 +21,6 @@ function NewUserRegister () {
                 'Content-Type': 'application/json',
             },
         });
-
-    const response = await fetch('/register', {
-        method: 'POST',
-        body: JSON.stringify(newUser),
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
 
     if (response.status === 201) {
         alert("Registration successful!");

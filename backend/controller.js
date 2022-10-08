@@ -108,7 +108,7 @@ app.post('/register/', (req, res) => {
     // check if the bathroom already exists
     userModel.findUsers({name: req.body.name})
     .then(result => {
-        console.log(result)
+        console.log(result);
         if (result.length !== 0) {
             res.status(400).json({Error: 'Username already exists.'});
         } else {

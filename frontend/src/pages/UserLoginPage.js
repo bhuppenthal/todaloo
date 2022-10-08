@@ -1,6 +1,6 @@
 import React from 'react';
 
-function NewUserLogin () {
+function NewUserLogin ({user, setUser}) {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -24,6 +24,9 @@ function NewUserLogin () {
 
     if (response.status === 201) {
         alert("Login successful!");
+        setUser({username: username, loggedIn: true});
+        console.log("User successfully signed in.");
+        console.log(user);
     } else {
         alert(`Failed to login, status code = ${response.status}`)
     }

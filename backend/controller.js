@@ -268,13 +268,11 @@ app.put('/rating/', async (req, res) => {
 
 // get all ratings by a given username
 app.get('/rating/:username', async (req, res) => {
-    const userIdFilter = {name: req.params.username}
-    const user = await userModel.findUsers(userIdFilter)
-    console.log(user)
-    // const userId = user._id
-    // const filter = {userId: userId}
-    // const ratings = await ratingModel.findRatings(filter);
-    res.status(200).json(user);
+    const userId = await userModel.findUsers({name: req.params.username})
+    console.log(userId)
+    const userRatings = await userModel.findUserRatings(userId)
+    console.log(userRatings)
+    res.status(200).json(userRatings);
 })
 
 app.listen(PORT, () => {

@@ -89,11 +89,11 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
   console.log(bathrooms)
   return (
       <>
-        {showButton &&
-          <div>
-            <button onClick={buttonClick} className="button">Click to create the bathroom</button>
-          </div>
+      <div className="container">
+        {showButton &&          
+            <button onClick={buttonClick} className="button">Click to create the bathroom</button>          
         }
+        </div>
         {(Object.keys(selectedBathroom).length !== 0) &&
           <div>
             <p>{selectedBathroom.name}</p>

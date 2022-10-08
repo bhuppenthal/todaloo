@@ -1,0 +1,10 @@
+.submit-form {
+    width: 250px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: rgb(168, 21, 21);
+    margin:auto;
+    
+  }

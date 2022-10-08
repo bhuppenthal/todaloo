@@ -156,9 +156,19 @@ strong {}
 sub {}
 
 /*  ----- Class definitions -----  */
+<<<<<<< HEAD
 .inline {
   display:"inline";
 }
+=======
+.container {
+  min-height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+>>>>>>> e956fe7cb94bba1b46b02bb4e7ead8ed88b7ea28
 .button {
   font-family: Silkscreen;
 }
@@ -200,3 +210,4 @@ sub {}
     transform: rotate(360deg);
   }
 }
+

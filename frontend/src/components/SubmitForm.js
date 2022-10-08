@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 
+import "./SubmitForm.css";
+
 function SubmitForm ({bathroomLatLng}) {
 
     const Checkbox = ({ label, value, onChange }) => {

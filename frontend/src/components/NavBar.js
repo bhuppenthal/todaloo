@@ -3,6 +3,9 @@ import React from 'react';
 const NavBar = ({user, setUser}) => {
     return (
         <div>
+            <nav>
+                <a href='/'>Home</a>
+            </nav>
             {(user.loggedIn === true) &&
                 <nav>
                     <a href="/profile">Profile</a>

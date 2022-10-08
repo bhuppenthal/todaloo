@@ -4,10 +4,10 @@ import * as db from './db.js';
 
 // user schema
 const userSchema = mongoose.Schema({
-    name: String,
+    name: { type: String },
     ratings: { type: [Object], default: [] },
     bathrooms: { type: [Object], default: []},
-    password: { type: String, required: true }, // TODO: implement password hashing
+    password: { type: String, required: true }, 
     deleted: { type: Boolean, default: false }
 });
 

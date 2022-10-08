@@ -11,8 +11,8 @@ const NavBar = ({user, setUser}) => {
             }
             {(user.loggedIn !== true) &&
                 <nav>
-                    <a to="/login">Login</a>
-                    <a to="/register">Register</a>
+                    <a href="/login">Login</a>
+                    <a href="/register">Register</a>
                 </nav>
             }
         </div>

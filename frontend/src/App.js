@@ -7,6 +7,9 @@ import { useState } from 'react';
 import MapView from './pages/MapView';
 import CreateBathroom from './pages/CreateBathroom';
 import NewUserPage from './pages/NewUserPage';
+import UserLoginPage from './pages/UserLoginPage';
+import UserLogoutPage from './pages/UserLogoutPage';
+import UserProfilePage from './pages/UserProfilePage';
 
 // importing components
 import Header from "./components/Header.js";
@@ -31,10 +34,12 @@ function App() {
     <Router>
       <Routes>
 
-        <Route path="/" element={<MapView bathroomLatLng={bathroomLatLng} setBathroomLatLng={setBathroomLatLng}/>}></Route>
+        <Route path="/" element={<MapView bathroomLatLng={bathroomLatLng} setBathroomLatLng={setBathroomLatLng} user={user}/>}></Route>
         <Route path="/create-bathroom" element={<CreateBathroom bathroomLatLng={bathroomLatLng}/>}></Route>
         <Route path="/register" element={<NewUserPage/>}></Route>
-        <Route path="/login"></Route>
+        <Route path="/login" element={<UserLoginPage user={user} setUser={setUser}></UserLoginPage>}></Route>
+        <Route path="/logout" element={<UserLogoutPage user={user} setUser={setUser}></UserLogoutPage>}></Route>
+        <Route path="/profile" element={<UserProfilePage user={user} setUser={setUser}></UserProfilePage>}></Route>
 
       </Routes>
     </Router>

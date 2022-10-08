@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import * as db from './db.js';
-import * as ratingModel from './ratingModel';
+import * as ratingModel from './ratingModel.js';
 
 // bathroom schema
 const bathroomSchema = mongoose.Schema({

@@ -92,6 +92,7 @@ app.post('/bathroom', (req, res) => {
                 req.body.name,
                 req.body.tags)
             .then(result => {
+                console.log(req.session.user_id)
                 ratingModel.createRating(
                     req.session.user_id, 
                     result._id, // bathroom id
@@ -121,7 +122,7 @@ app.post('/register/', (req, res) => {
     console.log('Received POST request to register.');
     console.log(req.body);
 
-    // check if the bathroom already exists
+    // check if the username already exists
     userModel.findUsers({name: req.body.username})
     .then(result => {
         console.log(result);
@@ -154,6 +155,7 @@ app.post('/login/', async (req, res) => {
     const userList = await userModel.findUsers(filter)
     .then( userList => {
         const user = userList[0];
+        console.log(user)
         const validPassword = bcrypt.compare(password, user.password)
         .then( validPassword => {
             if (validPassword) {
@@ -169,7 +171,7 @@ app.post('/login/', async (req, res) => {
     })
     .catch( error => {
         console.log("login failed");
-        res.status(400).json(userList[0])
+        res.status(400).json({Error: 'POST login failed.'});
     });
 })
 

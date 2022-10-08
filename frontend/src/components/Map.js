@@ -25,14 +25,16 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
   // Fires when the Map component is clicked on
   const mapClick = async (e) => {
     console.log("Registered a map click.");
-    setBathroomLatLng({lat: e.latLng.lat(), lng: e.latLng.lng()});
-    setShowButton(!showButton);
-
-    // selecting anywhere on the map deselects the bathroom
-    console.log("deselecting the bathroom:");
-    setSelectedBathroom({});
-    console.log(selectedBathroom);
-    console.log(Object.keys(selectedBathroom).length);
+    if (Object.keys(selectedBathroom).length === 0) {
+      setBathroomLatLng({lat: e.latLng.lat(), lng: e.latLng.lng()});
+      setShowButton(!showButton);
+    } else {
+      // selecting anywhere on the map deselects the bathroom
+      console.log("deselecting the bathroom:");
+      setSelectedBathroom({});
+      console.log(selectedBathroom);
+      console.log(Object.keys(selectedBathroom).length);
+    }
   }
 
   // Button on click should perform map on click events
@@ -98,6 +100,12 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
         {(Object.keys(selectedBathroom).length !== 0) &&
           <div>
             <p>{selectedBathroom.name}</p>
+            <p>{selectedBathroom.rating}</p>
+            <p>{selectedBathroom.tags.accessible}</p>
+            <p>{selectedBathroom.tags.free}</p>
+            <p>{selectedBathroom.tags.genderNeutral}</p>
+            <p>{selectedBathroom.tags.changingStation}</p>
+            <p>{selectedBathroom.tags.showers}</p>
           </div>
         }
         <GoogleMap
@@ -108,11 +116,10 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
             
             {// for loop to create a new state variable and state function for each marker component
             // showMarker, setShowMarker = useState()
-            bathrooms.map((bathroom, i) => (
-              <div key={i}>
+            bathrooms.map((bathroom) => (
+              <>
               <Marker position={{lat: bathroom.position.lat, lng: bathroom.position.lng}} onClick={markerClick}/>
               </>
-              
             ))};
 
             {showButton &&

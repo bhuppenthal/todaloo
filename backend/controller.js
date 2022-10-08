@@ -1,6 +1,7 @@
 import express from 'express';
 import * as bathroomModel from './model/bathroomModel.js';
-import * as userModel from './model/userModel.js'
+import * as userModel from './model/userModel.js';
+import * as ratingModel from './model/ratingModel.js';
 import 'dotenv/config';
 import cors from 'cors';
 import bcrypt from 'bcrypt';
@@ -60,7 +61,7 @@ app.get('/bathroom/:_id', (req, res) => {
 app.get('/bathroom/position', (req, res) => {
     console.log('Received GET request by position.');
     res.set('Access-Control-Allow-Origin', 'https://localhost:3000');
-    bathroomModel.findBathrooms({position: req.param.position})
+    bathroomModel.findBathrooms({position: req.params.position})
     .then(result => {
         if (result != null) {
             res.status(200).json(result);
@@ -84,23 +85,37 @@ app.post('/bathroom', (req, res) => {
     .then(result => {
         if (result.length !== 0) {
             res.status(400).json({Error: 'Bathroom already exists.'});
-        } else {
+        } else {            
             bathroomModel.createBathroom(
                 req.body.position,
                 req.body.rating,
                 req.body.name,
                 req.body.tags)
             .then(result => {
-                res.status(201).json(result);
+                ratingModel.createRating(
+                    req.session.user_id, 
+                    result._id, // bathroom id
+                    req.body.rating)
+                    .then(result =>  {
+                        res.status(201).json(result);
+                    })
+                    .catch(error=> {
+                        console.error(error)
+                        res.status(400).json({Error: 'POST bathroom, then add rating failed.'});
+                    })                
             })
             .catch(error => {
                 console.error(error);
                 res.status(400).json({Error: 'POST bathroom failed.'});
-            })
-        }
-    })    
+            })         
+        }       
+    })
 });
 
+// update bathroom
+
+
+// USER ROUTES
 // POST to create a new user
 app.post('/register/', (req, res) => {
     console.log('Received POST request to register.');
@@ -130,7 +145,7 @@ app.post('/register/', (req, res) => {
 
 
 // user login
-app.post('/login', async (req, res) => {
+app.post('/login/', async (req, res) => {
     const { username, password } = req.body;
     console.log(username)
     const filter = {name: username}
@@ -162,6 +177,26 @@ app.delete('/user/:id', (req, res) => {
             res.send({ error: 'Request failed'});
         });
 });
+
+// RATING ROUTES
+
+// create a new rating
+// app.post('/rating/', async (req, res) => {
+//     // check if user has already rated
+//     const userId = req.params.user_id;
+//     const user = await userModel.findUserById(user_id);
+//     const filter = {ratings: {$in: {_id: userId}}}
+// })
+
+// THIS IS WHERE YOU ARE ^^^
+
+// get all ratings by a given user
+app.get('/rating/:user_id', async (req, res) => {
+    const userId = req.params.user_id;
+    const filter = {_id: userId}
+    const ratings = await ratingModel.findRatings(filter);
+    res.status(200).json(ratings);
+})
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${process.env.PORT}.`)

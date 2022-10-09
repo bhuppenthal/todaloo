@@ -73,12 +73,15 @@ function UserLogin ({user, setUser}) {
                 id="password"
                 onChange={(e) => setPassword(e.target.value)} 
             />
-            <button
-                type="submit"
-                className="login-button"
-                onClick={submitUserLogin}>
-                Login
-            </button>
+            <div className='buttonContainer'>
+                <button
+                    type="submit"
+                    className="login-button"
+                    onClick={submitUserLogin}>
+                    Login
+                </button>
+            </div>
+            
          </form>
         </div>
     );

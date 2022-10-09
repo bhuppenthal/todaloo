@@ -9,6 +9,7 @@
     /* border-style:solid; */
     border-radius: 5px;
     padding-bottom: 100px;
+    align-items: center;
   }
 
 .user-name {
@@ -16,9 +17,11 @@
 }
 
 .pass-word {
-    padding-top: 25px;
+    padding-top: .5rem;
 }
 
 .login-button {
+    width: 100%;
     margin:auto;
+    margin-top: 1.25rem
 }

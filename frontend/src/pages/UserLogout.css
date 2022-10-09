@@ -1,4 +1,4 @@
-.login-title {
+.logoutContainer {
     width: 400px;
     height: 400px;
     display: flex;
@@ -12,16 +12,8 @@
     align-items: center;
   }
 
-.user-name {
-    /* padding-top: 30px; */
-}
-
-.pass-word {
-    padding-top: .5rem;
-}
-
-.login-button {
+.logoutButton {
     width: 100%;
     margin:auto;
-    margin-top: 1.25rem
+    margin-top: 2rem
 }

@@ -109,7 +109,7 @@ function Map ({bathroomLatLng, setBathroomLatLng, user, setUser}) {
           <button onClick={buttonClick} className="button">Click to create the bathroom</button>          
         }
         {(Object.keys(selectedBathroom).length !== 0) &&
-          <div>
+          <div className='center'>
             <p>{selectedBathroom.name}</p>
             <StarRating rating={selectedBathroom.rating}/>
             {(selectedBathroom.tags.accessible) &&

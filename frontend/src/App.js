@@ -17,8 +17,6 @@ import NavBar from "./components/NavBar.js";
 // importing styles
 import './App.css';
 
-//testing commit
-
 function App() {
 
   const [user, setUser] = useState({loggedIn: false});

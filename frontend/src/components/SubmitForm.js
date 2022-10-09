@@ -1,9 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
+import { useNavigate} from 'react-router-dom';
 
 import "./SubmitForm.css";
 
 function SubmitForm ({bathroomLatLng}) {
+
+  const navigate = useNavigate();
 
     const Checkbox = ({ label, value, onChange }) => {
         return(
@@ -89,7 +92,7 @@ function SubmitForm ({bathroomLatLng}) {
         } else {
             alert(`Failed to add marker too bad, status code = ${response.status}`);
         }
-        //history.push("/");
+        navigate("/");
       };
 
     return (

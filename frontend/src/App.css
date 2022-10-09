@@ -203,9 +203,12 @@ sub {}
 .p {
   margin: auto;
 }
-
+.center {
+  margin:auto;
+}
 .button {
   font-family: Silkscreen;
+  margin:auto;
 }
 .App {
   text-align: center;

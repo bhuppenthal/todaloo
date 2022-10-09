@@ -92,7 +92,7 @@ function Map ({bathroomLatLng, setBathroomLatLng, user, setUser}) {
   };
 
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: "AIzaSyCSav7XYiFV_A__jXEwiNmcrryHmYS-VPY",
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   })
     
   if (loadError) return "Error"; 

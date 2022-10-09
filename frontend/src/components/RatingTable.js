@@ -9,11 +9,16 @@ const RatingTable = () => {
     const loadRatings = async () => {
         const ratings = localStorage.getItem("userData");
         console.log(ratings);
+        console.log(`type of response ${typeof ratings}`);
+        // console.log(Object.keys(ratings));
+        // for (let i = 0; i , Object.keys(ratings); i++) {
+        //     console.log(ratings.i);
+        // }
         setRatings(ratings);
     }
 
     // i am trying to make a fetch request for a specific rating row
-    // 
+    // which
 
     useEffect(() => {
         loadRatings();

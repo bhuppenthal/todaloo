@@ -35,12 +35,18 @@ function UserLogin ({user, setUser}) {
         if (response.status === 201) {
             alert("Login successful!");
             setUser({username: username, loggedIn: true});
-            console.log("User successfully signed in.");
-            console.log(data);
-            console.log("Body of response:");
-            console.log(data);
+            // console.log("User successfully signed in.");
+            // console.log(data);
+            // console.log("Body of response:");
+            // console.log(data);
+            // console.log(`typeof data ${typeof data}`);
+            // console.log(`keys: ${Object.keys(data.ratings)}`);
+            // console.log(data.ratings);
+            // console.log(`keys: ${Object.keys(data.bathrooms)}`);
+            // console.log(data.bathrooms);
             localStorage.setItem("user", JSON.stringify({username: username, loggedIn: true}));
-            localStorage.setItem("userData", data);
+            localStorage.setItem("userRatings", data.ratings);
+            localStorage.setItem("userBathrooms", data.bathrooms)
         } else {
             alert(`Failed to login, status code = ${response.status}`)
         }

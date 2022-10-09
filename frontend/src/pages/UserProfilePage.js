@@ -2,9 +2,9 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import RatingTable from '../components/RatingTable.js';
 
-function UserProfilePage ({user, setUser}) {
+function UserProfilePage ({setUser}) {
 
-  //const [ratings, setRatings] = useState({});
+  const [ratings, setRatings] = useState({});
   //const [ratingToUpdate, setRatingToUpdate] = useState({});
 
   // checks local storage for a user and if found, sets user to the stored user
@@ -13,24 +13,39 @@ function UserProfilePage ({user, setUser}) {
     const loggedInUser = localStorage.getItem("user");
     if (loggedInUser) {
       const foundUser = JSON.parse(loggedInUser);
+      loadRatings();
       setUser(foundUser);
-      //loadRatings();
     }
   }, []);
 
-  // // Retrieve all ratings associated with the saved user
-  // const loadRatings = async () => {
-  //   let url = new URL("https://localhost:3000");
-  //   url.searchParams.append("username", user.username);
+  // Retrieve all ratings associated with the saved user
+  const loadRatings = async () => {
+    const ratings = localStorage.getItem("userRatings");
 
-  //   console.log("Attempting to load ratings. URL:");
-  //   console.log(user);
-  //   console.log(url);
+    let ratingsArray = [];
+    let arrayValue = "";
 
-  //   const response = await fetch(url,{method: 'GET'});
-  //   const ratings = await response.json();
-  //   setRatings(ratings);
-  // }
+    for (let char of ratings) {
+      if (char !== ",") {
+        arrayValue = arrayValue + char;
+      } else {
+        ratingsArray.push(arrayValue);
+        arrayValue = "";
+      }
+    }
+    ratingsArray.push(arrayValue);
+    setRatings(ratingsArray);
+    console.log(ratingsArray);
+
+    let url = new URL("https://localhost:3000");
+    url.searchParams.append("/:_id", ratingsArray[0]);
+
+    const response = await fetch(url, {method: 'GET'})
+    .then(response => {
+      const a_rating = response.json();
+      console.log(a_rating);
+    })
+  }
 
 
     return (

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
+import './RatingTable.css';
 
 import RatingRow from './RatingRow';
 
@@ -56,7 +57,7 @@ const RatingTable = () => {
     
 
     return (
-        <table>
+        <table id="table">
             <thead>
                 <tr>
                     <th>Bathroom Name</th>

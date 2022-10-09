@@ -77,10 +77,11 @@ footer {
   text-align: center;
   max-width: fit-content;
   justify-content: center;
-  margin: auto;
-  margin-bottom:20px;
   padding: 6px;
   font-family: Silkscreen;
+  position: fixed;
+  bottom: 2%;
+  margin-left: 26%;
 }
 
 /*  -----  Typography  ----- */
@@ -117,12 +118,12 @@ table {
 tr td {
   border: 2px solid var(--stardewBorder);
   font-size: 25px;
-  padding: 1% 3%;
+  padding: 2% 5%;
 }
 tr th {
   border: 2px solid var(--stardewBorder);
   min-width: 100px;
-  padding: 1% 3%;
+  padding: 3% 5%;
 }
 
 /*  ----- Form rules -----  */
@@ -189,6 +190,9 @@ sub {}
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  margin-left:12%;
+  bottom:5%;
 }
 
 .p {

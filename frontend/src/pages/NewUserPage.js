@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import "./NewUser.css"
 
 function NewUserRegister () {
 
@@ -50,12 +51,15 @@ function NewUserRegister () {
                 id="password"
                 onChange={(e) => setPassword(e.target.value)} 
             />
-            <button
-                type="submit"
-                className="button"
-                onClick={submitNewUser}>
-                Register
-            </button>
+            <div className='buttonContainer'>
+                <button
+                    type="submit"
+                    className="register-button"
+                    onClick={submitNewUser}>
+                    Register
+                </button>
+            </div>
+            
          </form>
         </div>
     );

@@ -17,8 +17,7 @@ const NavBar = ({user, setUser}) => {
                     <a href="/register">Register</a>
                 </nav>
             }
-        </div>
-            
+        </div>            
     )
 }
 

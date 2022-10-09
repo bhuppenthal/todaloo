@@ -190,6 +190,13 @@ sub {}
   justify-content: center;
   align-items: center;
 }
+.spacer {
+  margin-bottom: 5rem;
+}
+
+.p {
+  margin: auto;
+}
 
 .button {
   font-family: Silkscreen;

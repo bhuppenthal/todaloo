@@ -102,7 +102,7 @@ content-type: application/json
 }
 
 ### get all ratings by a user from user id
-GET http://localhost:3000/rating/634108d33df94ea709dc5a27 HTTP/1.1
+GET http://localhost:3000/rating/63422362835c7cc124fb820e HTTP/1.1
 content-type: application/json
 
 ### get all ratings by a user from username

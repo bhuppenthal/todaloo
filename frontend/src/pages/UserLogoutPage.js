@@ -25,13 +25,17 @@ function UserLogoutPage ({user, setUser}) {
 
     return (
         <>
-        <p>user logout</p>
-        <button 
-            type="submit" 
-            className="button"
-            onClick={handleLogout}>
-            Log Out
-          </button>
+        <div className="container">
+          {/* <p className="p">user logout</p> */}
+          
+          <button 
+              type="submit" 
+              className="button"
+              onClick={handleLogout}>
+              Log Out
+            </button>
+        </div>
+        
           </>
     );
 };

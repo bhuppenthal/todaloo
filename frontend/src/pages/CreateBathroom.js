@@ -5,7 +5,7 @@ function CreateBathroom ({bathroomLatLng}) {
     console.log(bathroomLatLng);
     return (
         <>
-        <SubmitForm bathroomLatLng={bathroomLatLng}/>
+        <SubmitForm bathroomLatLng={bathroomLatLng} />
         </>
     );
 };

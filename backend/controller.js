@@ -261,6 +261,8 @@ app.post('/rating/', async (req, res) => {
     }
 })
 
+
+// get rating by id
 app.get('/rating/:_id', async (req, res) => {
     const ratingId = req.params._id
     ratingModel.findRatingById(ratingId)

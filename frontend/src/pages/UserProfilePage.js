@@ -41,17 +41,21 @@ function UserProfilePage ({setUser}) {
     // iterate through the ratings ID Array, making a fetch request for each ID and storing in a rating ID
     let ratingsArray = []
 
-    for (let i = 0; i < ratingsIDArray.length; i++) {
-
+    for (let i = 0; i < ratingsIDArray.length; i++) {      
       const response = await fetch("http://localhost:3000/rating/" + ratingsIDArray[i], {method: 'GET'})
-      .then(response => {
-        const rating = response.json();
-        ratingsArray.push(rating);
-      })
-      .catch( error => {
-        alert("Some error occurred.");
-      }
-      )
+      // .then(response => {
+      //   response.then(response=> {
+      //     const rating = response.json();
+      //     ratingsArray.push(rating);
+      //   })        
+      // })
+      // .catch( error => {
+      //   alert("Some error occurred.");
+      // }
+      // )
+      const rating = await response.json()
+      ratingsArray.push(rating)
+      console.log(rating)
     }
     console.log(ratingsArray);
     setRatingsToUpdate(ratingsArray)

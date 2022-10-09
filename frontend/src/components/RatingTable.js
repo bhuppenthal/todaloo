@@ -9,6 +9,7 @@ const RatingTable = ({ratingsToUpdate}) => {
     console.log(ratingsToUpdate)
     // let ratingsString = JSON.stringify(ratingsToUpdate[3])
     // console.log(ratingsString)
+    console.log("but i changed");
     
 
     return (

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 
 const RatingRow = ({rate}) => {
 
+  console.log("pls");
   const {bathroomId, date} = rate;
   //   const [ratings, setRatings] = useState({});
 

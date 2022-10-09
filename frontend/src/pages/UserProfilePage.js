@@ -7,6 +7,7 @@ function UserProfilePage ({setUser}) {
   const [ratings, setRatings] = useState({});
   const [ratingsToUpdate, setRatingsToUpdate] = useState({});
 
+//idk
 
   // checks local storage for a user and if found, sets user to the stored user
   useEffect(() => {

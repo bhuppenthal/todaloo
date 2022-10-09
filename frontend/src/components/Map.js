@@ -154,7 +154,11 @@ function Map ({bathroomLatLng, setBathroomLatLng, user, setUser}) {
             
             {bathrooms.map((bathroom, i) => (
               <>
-              <Marker position={{lat: bathroom.position.lat, lng: bathroom.position.lng}} onClick={markerClick} key={i}/>
+              <Marker 
+                  position={{lat: bathroom.position.lat, lng: bathroom.position.lng}} 
+                  onClick={markerClick} 
+                  key={i}
+                  icon= {{url: '/toliet-icon50.png'}}/>
               </>
             ))};
 

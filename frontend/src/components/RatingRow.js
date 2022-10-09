@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 const RatingRow = ({rate, ratingsToUpdate}) => {
 
   console.log("pls");
-  const {bathroomId, date} = rate;
+  const {bathroomId, rating} = rate;
 
   useEffect(() =>{
     console.log("Triggered a render of RatingRow.");
@@ -14,7 +14,7 @@ const RatingRow = ({rate, ratingsToUpdate}) => {
         <>
         <tr>
             <td>{bathroomId}</td>
-            <td>{date}</td>
+            <td>{rating}</td>
         </tr>
         {/* {ratings.map((rating, i) => (
             <>

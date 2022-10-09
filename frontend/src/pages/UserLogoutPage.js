@@ -1,8 +1,11 @@
 import React from 'react';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './UserLogout.css';
 
 function UserLogoutPage ({user, setUser}) {
+
+  const navigate = useNavigate();
 
     // checks local storage for a user and if found, sets user to the stored user 
     useEffect(() => {
@@ -21,7 +24,8 @@ function UserLogoutPage ({user, setUser}) {
         // setUsername("");
         // setPassword("");
         localStorage.clear();
-        console.log("USER HAS BEEN LOGGED OUT")
+        console.log("USER HAS BEEN LOGGED OUT");
+        navigate("/");
       };
 
     return (

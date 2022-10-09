@@ -1,11 +1,13 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 import "./UserLogin.css";
 
 function UserLogin ({user, setUser}) {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     //checking if user is already logged in - should redirect to logout/profile or homepage maybe?
     useEffect(() => {
@@ -51,6 +53,7 @@ function UserLogin ({user, setUser}) {
         } else {
             alert(`Failed to login, status code = ${response.status}`)
         }
+        navigate("/");
     };
 
     return (

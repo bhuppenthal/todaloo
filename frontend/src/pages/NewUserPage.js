@@ -1,11 +1,13 @@
 import React from 'react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import "./NewUser.css"
 
 function NewUserRegister () {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const submitNewUser = async (e) => {
         const newUser = {
@@ -24,11 +26,13 @@ function NewUserRegister () {
             },
         });
 
-    if (response.status === 201) {
-        alert("Registration successful!");
-    } else {
-        alert(`Failed to register, status code = ${response.status}`)
-    }
+        if (response.status === 201) {
+            alert("Registration successful!");
+        } else {
+            alert(`Failed to register, status code = ${response.status}`)
+        }
+        
+        navigate("/");
     };
 
     return (

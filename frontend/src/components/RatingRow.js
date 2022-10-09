@@ -1,9 +1,9 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
+import './RatingRow.css';
 
 const RatingRow = ({rate, ratingsToUpdate}) => {
 
-  console.log("pls");
   const {bathroomId, rating} = rate;
 
   useEffect(() =>{

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useEffect } from 'react';
+import './UserLogout.css';
 
 function UserLogoutPage ({user, setUser}) {
 
@@ -25,12 +26,12 @@ function UserLogoutPage ({user, setUser}) {
 
     return (
         <>
-        <div className="container">
+        <div className="logoutContainer">
           {/* <p className="p">user logout</p> */}
           
           <button 
               type="submit" 
-              className="button"
+              className="logoutButton"
               onClick={handleLogout}>
               Log Out
             </button>

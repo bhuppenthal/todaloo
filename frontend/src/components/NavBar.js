@@ -1,8 +1,9 @@
 import React from 'react';
+import './NavBar.css'
 
 const NavBar = ({user, setUser}) => {
     return (
-        <div>
+        <div className='navBar'>
             {(user.loggedIn === true) &&
                 <nav className='navbar'>
                     <a href="/">Home</a>

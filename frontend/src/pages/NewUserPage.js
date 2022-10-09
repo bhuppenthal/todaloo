@@ -35,7 +35,7 @@ function NewUserRegister () {
         <div className="register-title"> 
          
          <form onSubmit={(e) => {e.preventDefault();}}>
-            <label>Enter Username</label>
+            <label className='user-name'>Enter Username</label>
             <input required
                 type="text"
                 placeholder="username"
@@ -43,7 +43,7 @@ function NewUserRegister () {
                 id="username"
                 onChange={(e) => setUsername(e.target.value)} 
             />
-            <label>Enter Password </label>
+            <label className='pass-word'>Enter Password </label>
             <input required
                 type="password"
                 placeholder="password"

@@ -1,7 +1,6 @@
 // importing dependencies
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useState } from 'react';
 
 //importing pages
 import MapView from './pages/MapView';
@@ -22,6 +21,10 @@ function App() {
 
   const [user, setUser] = useState({loggedIn: false});
   const [bathroomLatLng, setBathroomLatLng] = useState(null);
+
+  useEffect(() => {
+
+  }, []);
 
 // navigation links in header, dependent on whether the user is logged in or not
 

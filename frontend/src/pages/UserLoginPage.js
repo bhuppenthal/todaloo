@@ -6,10 +6,6 @@ function UserLogin ({user, setUser}) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    console.log(user); // also load bearing.
-    //TODO: why are the state variables not actually initializing properly
-    // they seem to need to be referenced once before they can actually be changed?
-
     //checking if user is already logged in - should redirect to logout/profile or homepage maybe?
     useEffect(() => {
         const loggedInUser = localStorage.getItem("user");
@@ -25,29 +21,29 @@ function UserLogin ({user, setUser}) {
             password: password
         };
     
-    console.log("user credentials: ");
-    console.log(userCredentials);
+        console.log("user credentials: ");
+        console.log(userCredentials);
 
-    const response = await fetch('/login', {
-        method: 'POST',
-        body: JSON.stringify(userCredentials),
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-
-    if (response.status === 201) {
-        alert("Login successful!");
-        setUser({username: username, loggedIn: true});
-        console.log("User successfully signed in.");
-        console.log(user);
-        //TODO: this will change the user state variable, but when the user navigates to any other page, the variable is reset
-        // but you should see that on login after its successful the navigation links do change
-        // this stores the user info in local storage for each page to retrieve
-        localStorage.setItem("user", JSON.stringify({username: username, loggedIn: true}));
-    } else {
-        alert(`Failed to login, status code = ${response.status}`)
-    }
+        const response = await fetch('/login', {
+            method: 'POST',
+            body: JSON.stringify(userCredentials),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        const data = await response.json();
+        if (response.status === 201) {
+            alert("Login successful!");
+            setUser({username: username, loggedIn: true});
+            console.log("User successfully signed in.");
+            console.log(data);
+            console.log("Body of response:");
+            console.log(data);
+            localStorage.setItem("user", JSON.stringify({username: username, loggedIn: true}));
+            localStorage.setItem("userData", data);
+        } else {
+            alert(`Failed to login, status code = ${response.status}`)
+        }
     };
 
     return (

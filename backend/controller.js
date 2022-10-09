@@ -1,12 +1,13 @@
 import express from 'express';
-import * as bathroomModel from './model/bathroomModel.js';
-import * as userModel from './model/userModel.js';
-import * as ratingModel from './model/ratingModel.js';
 import 'dotenv/config';
 import cors from 'cors';
 import bcrypt from 'bcrypt';
 import cookieParser from 'cookie-parser';
 import expressSession from 'express-session';
+
+import * as bathroomModel from './model/bathroomModel.js';
+import * as userModel from './model/userModel.js';
+import * as ratingModel from './model/ratingModel.js';
 
 // create express instance, set the listening port
 const PORT = process.env.PORT;
@@ -293,11 +294,13 @@ app.put('/rating/', async (req, res) => {
 
 // get all ratings by a given username
 app.get('/rating/:username', async (req, res) => {
-    const userId = await userModel.findUsers({name: req.params.username})
-    console.log(userId)
-    const userRatings = await userModel.findUserRatings(userId)
-    console.log(userRatings)
-    res.status(200).json(userRatings);
+    const userId = await userModel.findUsers({name: req.params.username});
+    console.log(userId);
+    const userRatings = await userModel.findUserRatings(userId);
+    console.log(userRatings);
+    res.status(200);
+    res.header('Access-Control-Allow-Origin', 'https://localhost:3000');
+    res.json(userRatings);
 })
 
 app.listen(PORT, () => {

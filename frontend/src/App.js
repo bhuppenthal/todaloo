@@ -23,7 +23,6 @@ function App() {
   const [user, setUser] = useState({loggedIn: false});
   const [bathroomLatLng, setBathroomLatLng] = useState(null);
 
-
 // navigation links in header, dependent on whether the user is logged in or not
 
   return (

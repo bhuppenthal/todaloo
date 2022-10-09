@@ -44,7 +44,7 @@ function NewUserRegister () {
             />
             <label>Enter Password </label>
             <input required
-                type="text"
+                type="password"
                 placeholder="password"
                 value={password}
                 id="password"

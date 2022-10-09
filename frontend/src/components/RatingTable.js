@@ -10,7 +10,10 @@ const RatingTable = () => {
         const ratings = localStorage.getItem("userData");
         console.log(ratings);
         setRatings(ratings);
-      }
+    }
+
+    // i am trying to make a fetch request for a specific rating row
+    // 
 
     useEffect(() => {
         loadRatings();
@@ -18,11 +21,14 @@ const RatingTable = () => {
 
     return (
         <table>
-            <th>Bathroom Name</th>
-            <th>Rating</th>
-            <th>Tags</th>
-            <th>Update?</th>
-            
+            <thead>
+                <tr>
+                    <th>Bathroom Name</th>
+                    <th>Rating</th>
+                    <th>Tags</th>
+                    <th>Update?</th>
+                </tr> 
+            </thead>
         </table>
     )
 }

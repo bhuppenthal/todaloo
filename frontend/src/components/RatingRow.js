@@ -7,7 +7,6 @@ const RatingRow = ({ratings}) => {
 
     return (
         <tr>
-            <th></th>
         </tr>
     )
 }

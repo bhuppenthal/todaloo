@@ -85,20 +85,31 @@ app.post('/bathroom', (req, res) => {
     .then(result => {
         if (result.length !== 0) {
             res.status(400).json({Error: 'Bathroom already exists.'});
-        } else {            
+        } else {       
+
             bathroomModel.createBathroom(
                 req.body.position,
                 req.body.rating,
                 req.body.name,
                 req.body.tags)
             .then(result => {
-                console.log(req.session.user_id)
                 ratingModel.createRating(
-                    req.session.user_id, 
+                    req.body.username, 
                     result._id, // bathroom id
                     req.body.rating)
                     .then(result =>  {
-                        res.status(201).json(result);
+                        const ratingId = result._id
+                        userModel.updateUserBathrooms(req.body.username, result.bathroomId)
+                        .then(result => {                            
+                            userModel.updateUserRatings(req.body.username, ratingId)
+                            .then(result => {
+                                res.status(201).json({result})
+                            })                            
+                        })
+                        .catch(error=> {
+                            console.error(error)
+                            res.status(400).json({Error: 'Updating users bathrooms failed.'});
+                        })  
                     })
                     .catch(error=> {
                         console.error(error)
@@ -112,6 +123,7 @@ app.post('/bathroom', (req, res) => {
         }       
     })
 });
+
 
 // update bathroom
 
@@ -145,7 +157,6 @@ app.post('/register/', (req, res) => {
     })    
 });
 
-
 // user login
 app.post('/login/', async (req, res) => {
     console.log('Received post request to /login');
@@ -162,7 +173,16 @@ app.post('/login/', async (req, res) => {
                 console.log("login successful");
                 console.log(user);
                 req.session.user_id = user._id;
-                res.status(201).json(user);
+                const userContent = { ratings: [], bathrooms: []}
+                for (let i = 0; i < user.ratings.length; i++){
+                    const rating = ratingModel.findRatingById(user.ratings[i])
+                    userContent.ratings.push(rating)
+                }
+                for (let i = 0; i < user.bathrooms.length; i++){
+                    const bathroom = bathroomModel.findBathroomById(user.bathrooms[i])
+                    userContent.bathrooms.push(bathroom)
+                }
+                res.status(201).json(userContent);
             } else {
                 console.log("login failed");
                 res.status(400).json(user);
@@ -198,33 +218,40 @@ app.delete('/user/:id', (req, res) => {
 // create a new rating
 app.post('/rating/', async (req, res) => {
     // check if user has already rated
-    const userId = req.body.user_id;
+    const username = req.body.username;
     const bathroomId = req.body.bathroom_id;
-    const filter = { _id: userId, }
-    let userRatings = await userModel.findUserRatings(filter);
+    let userRatings = await userModel.findUserRatings(username);
     // make userRatings just an array of the user's ratings, without their _id involved
     userRatings = userRatings.ratings;
+    console.log("post request to new rating")
+    // console.log(userRatings)
     let hasAlreadyRated = false;
     for (let i = 0; i < userRatings.length; i++) {
-        const rating = await ratingModel.findRatingById(userRatings[i])
+        const rating = await ratingModel.findRatingById(userRatings[i])        
         if(rating.bathroomId === bathroomId){
             hasAlreadyRated = true;
         }
     }
     if (!hasAlreadyRated) {
         ratingModel.createRating(
-            userId,
+            username,
             bathroomId,
             req.body.rating
             )
             .then(result => {
-                const ratingId = result._id.toString();
-                userModel.addRatingToUser(userId, ratingId)
+                const ratingId = result._id;
+                userModel.addRatingToUser(username, ratingId)
                 .then(result => {
                     // update bathrooms aggregate rating
                     bathroomModel.updateAggregateRating(bathroomId)
-                    console.log(result)
-                    res.status(201).json(result);
+                    .then( result => {
+                        console.log(result)
+                        res.status(201).json(result);
+                    })
+                    .catch(error => {
+                        console.error(error)
+                        res.status(400).json({Error: 'Failed to update bathroom\'s aggregate rating.'});
+                    })                    
                 })
                 .catch(error => {
                     console.error(error)
@@ -248,23 +275,21 @@ app.put('/rating/', async (req, res) => {
     const newRating = req.body.new_rating
     ratingModel.updateRating(ratingId, newRating)
     .then(result => {
-        console.log(result)
-        res.status(201).json(result);
+        bathroomModel.updateAggregateRating(result.bathroomId.toString())
+        .then(result => {
+            // console.log(result)
+            res.status(201).json(result);
+        })
+        .catch(error => {
+            console.error(error)
+            res.status(400).json({Error: 'Failed to update bathroom\'s aggregate rating.'});
+        })        
     })
     .catch(error => {
         console.error(error)
         res.status(400).json({Error: 'Failed to update rating.'});
     })
 })
-
-
-// // get all ratings by a given user id
-// app.get('/rating/:user_id', async (req, res) => {
-//     const userId = req.params.user_id;
-//     const filter = {_id: userId}
-//     const ratings = await ratingModel.findRatings(filter);
-//     res.status(200).json(ratings);
-// })
 
 // get all ratings by a given username
 app.get('/rating/:username', async (req, res) => {

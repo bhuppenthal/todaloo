@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import * as db from './db.js';
+import * as userModel from './userModel.js'
 
 // rating schema
 const ratingSchema = mongoose.Schema({
@@ -24,9 +25,10 @@ const findRatingById = async (_id) => {
     return query.exec();
 }
 
-const createRating = async (user, bathroom, ratingActual) => {
+const createRating = async (username, bathroom, ratingActual) => {
+    let userId = await userModel.findUserId(username)
     const rating = new Rating({
-        userId: user,
+        userId: userId,
         bathroomId: bathroom,
         date: new Date(),
         rating: ratingActual

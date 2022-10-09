@@ -20,12 +20,18 @@ const findUsers = async (filter) => {
     return query.exec();
 }
 
-const findUserRatings = async(_id) => {
-    const query = User.findOne({ _id: _id}, 'ratings');    
+const findUserId = async(username) => {
+    const query = User.findOne({name: username}, '_id');
+    return query.exec()
+}
+
+const findUserRatings = async(username) => {
+    const query = User.findOne({name: username}, 'ratings');    
     return query.exec() 
 }
 
-const addRatingToUser = async(userId, ratingId) => {
+const addRatingToUser = async(username, ratingId) => {
+    const userId = await User.findOne({name: username}, '_id');
     const user = await findUserById(userId);
     user.ratings.push(ratingId)
     return user.save()
@@ -54,6 +60,20 @@ const createUser = async (name, password) => {
     });    
 }
 
+const updateUserBathrooms = async (username, bathroomId) => {
+    let user = await findUsers({name: username})
+    user = user[0]
+    user.bathrooms.push(bathroomId)
+    return user.save()
+}
+
+const updateUserRatings = async (username, ratingId) => {
+    let user = await findUsers({name: username})
+    user = user[0]
+    user.ratings.push(ratingId)
+    return user.save()
+}
+
 const deleteUserById = async (_id) => {
     const result = await User.deleteOne({_id: _id});
     return result.deletedCount;
@@ -65,4 +85,4 @@ const deleteUserByProperty = async (filter) => {
 }
 
 // export for use in controller
-export { addRatingToUser, createUser, findUsers, findUserRatings, findUserById, deleteUserById, deleteUserByProperty }
+export { findUserId, updateUserRatings, updateUserBathrooms, addRatingToUser, createUser, findUsers, findUserRatings, findUserById, deleteUserById, deleteUserByProperty }

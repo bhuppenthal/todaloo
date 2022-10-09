@@ -1,3 +1,12 @@
+### test
+POST http://localhost:3000/test HTTP/1.1
+content-type: application/json
+
+{
+    "bathroom_id": "1",
+    "user_id": "6341f9955445851a81243070"
+}
+
 ### get bathrooms
 GET http://localhost:3000/bathroom HTTP/1.1
 content-type: application/json
@@ -7,10 +16,11 @@ POST http://localhost:3000/bathroom HTTP/1.1
 content-type: application/json
 
 {
-    "position": {"lat": 48.568200, "lng": -123.272541},
+    "position": {"lat": 2.568200, "lng": -123.272541},
     "rating": 1,
-    "name": "Some random Bath4",
-    "tags": {"free": false, "gender-neutral": false, "disability friendly": true, "changing stations": false}
+    "name": "Bath for testing agg rating",
+    "tags": {"free": false, "gender-neutral": false, "disability friendly": true, "changing stations": false},
+    "username": "Testgirl2" 
 }
 
 ### create bathroom 2
@@ -21,7 +31,8 @@ content-type: application/json
     "position": {"lat": 44.554297, "lng": -123.274483},
     "rating": 3,
     "name": "OSU Bathroom 2",
-    "tags": {"free": true, "gender-neutral": true, "disability friendly": true, "changing stations": false}
+    "tags": {"free": true, "gender-neutral": true, "disability friendly": true, "changing stations": false},
+    "username": "Testguy" 
 }
 
 ### create bathroom 3
@@ -29,10 +40,11 @@ POST http://localhost:3000/bathroom HTTP/1.1
 content-type: application/json
 
 {
-    "position": {"lat": 44.550146, "lng": -123.312394},
+    "position": {"lat": 1.550146, "lng": -123.312394},
     "rating": 1,
-    "name": "OSU Bathroom 2",
-    "tags": {"free": false, "gender-neutral": false, "disability friendly": false, "changing stations": false}
+    "name": "OSU Bathroom 69",
+    "tags": {"free": false, "gender-neutral": false, "disability friendly": false, "changing stations": false},
+    "username": "Testguy" 
 }
 
 ### create user 1
@@ -40,7 +52,16 @@ POST http://localhost:3000/register HTTP/1.1
 content-type: application/json
 
 {
-    "username": "Testguy",
+    "username": "Testguy2",
+    "password": "12345"
+}
+
+### create user 2
+POST http://localhost:3000/register HTTP/1.1
+content-type: application/json
+
+{
+    "username": "Testgirl2",
     "password": "12345"
 }
 
@@ -66,8 +87,8 @@ POST http://localhost:3000/rating HTTP/1.1
 content-type: application/json
 
 {
-    "user_id": "634108d33df94ea709dc5a27",
-    "bathroom_id": "6340afbb30d358bfb45f0182",
+    "username": "Testguy2",
+    "bathroom_id": "634223ce835c7cc124fb8211",
     "rating": 5
 }
 

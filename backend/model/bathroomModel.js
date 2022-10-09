@@ -39,8 +39,10 @@ const createBathroom = async (position, rating, name, tags) => {
 // update bathroom's aggregate rating
 const updateAggregateRating = async (bathroomId) => {
     const bathroom = await findBathroomById(bathroomId)
+    console.log(bathroom)
     const ratingsFilter = { bathroomId: bathroomId }
     const ratings = await ratingModel.findRatings(ratingsFilter)
+    console.log(ratings)
     let ratingSum = 0
     for (let i=0; i < ratings.length; i++){
         ratingSum += ratings[i].rating

@@ -4,6 +4,7 @@ import cors from 'cors';
 import bcrypt from 'bcrypt';
 import cookieParser from 'cookie-parser';
 import expressSession from 'express-session';
+import mongoose from 'mongoose';
 
 import * as bathroomModel from './model/bathroomModel.js';
 import * as userModel from './model/userModel.js';
@@ -228,7 +229,7 @@ app.post('/rating/', async (req, res) => {
     if (!hasAlreadyRated) {
         ratingModel.createRating(
             username,
-            bathroomId,
+            mongoose.Types.ObjectId(bathroomId),
             req.body.rating
             )
             .then(result => {
@@ -260,6 +261,17 @@ app.post('/rating/', async (req, res) => {
     }
 })
 
+app.get('/rating/:_id', async (req, res) => {
+    const ratingId = req.params._id
+    ratingModel.findRatingById(ratingId)
+    .then(rating => {
+        res.status(200).json(rating)
+    })
+    .catch(error => {
+        console.error(error)
+        res.status(400).json({Error: 'Failed to find rating by that id.'});
+    })
+})
 
 
 // update given rating

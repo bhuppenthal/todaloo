@@ -16,9 +16,9 @@ POST http://localhost:3000/bathroom HTTP/1.1
 content-type: application/json
 
 {
-    "position": {"lat": 2.568200, "lng": -123.272541},
+    "position": {"lat": 0.568200, "lng": -123.272541},
     "rating": 1,
-    "name": "Bath for testing agg rating",
+    "name": "Testing createRating2",
     "tags": {"free": false, "gender-neutral": false, "disability friendly": true, "changing stations": false},
     "username": "Testgirl2" 
 }
@@ -88,7 +88,7 @@ content-type: application/json
 
 {
     "username": "Testguy2",
-    "bathroom_id": "634223ce835c7cc124fb8211",
+    "bathroom_id": "634238d48dafc81d8d0ed04e",
     "rating": 5
 }
 
@@ -107,4 +107,8 @@ content-type: application/json
 
 ### get all ratings by a user from username
 GET http://localhost:3000/rating/b HTTP/1.1
+content-type: application/json
+
+### get a rating by its id
+GET http://localhost:3000/rating/634208458a376dcda721fd80 HTTP/1.1
 content-type: application/json

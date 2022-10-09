@@ -1,2 +1,3 @@
 # todaloo
-![todaloo home page](https://user-images.githubusercontent.com/22666276/194777487-592cf02c-346d-42d3-a3cb-064618b75717.JPG)
+
+![Example_Todaloo](https://user-images.githubusercontent.com/22666276/194778065-4e4198e9-7cd0-4c01-8709-23bc1119e7e1.gif)

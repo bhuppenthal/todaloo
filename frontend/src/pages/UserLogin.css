@@ -1,0 +1,24 @@
+.login-title {
+    width: 400px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: black;
+    margin:auto;
+    /* border-style:solid; */
+    border-radius: 5px;
+    padding-bottom: 100px;
+  }
+
+.user-name {
+    padding-top: 30px;
+}
+
+.pass-word {
+    padding-top: 25px;
+}
+
+.login-button {
+    margin:auto;
+}

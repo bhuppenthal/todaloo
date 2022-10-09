@@ -101,11 +101,13 @@ function Map ({bathroomLatLng, setBathroomLatLng, user, setUser}) {
   console.log(bathrooms)
   return (
       <>
-      <div className="container">
-        {showButton &&          
-            <button onClick={buttonClick} className="button">Click to create the bathroom</button>          
+      <div>
+        {(!showButton && Object.keys(selectedBathroom).length !== 0) &&
+          <div className="emptyDiv"></div>
         }
-        </div>
+        {showButton &&          
+          <button onClick={buttonClick} className="button">Click to create the bathroom</button>          
+        }
         {(Object.keys(selectedBathroom).length !== 0) &&
           <div>
             <p>{selectedBathroom.name}</p>
@@ -142,6 +144,8 @@ function Map ({bathroomLatLng, setBathroomLatLng, user, setUser}) {
             }
           </div>
         }
+      </div>
+      <div className="container">        
         <GoogleMap
             mapContainerStyle={containerStyle}
             center={center}
@@ -160,6 +164,7 @@ function Map ({bathroomLatLng, setBathroomLatLng, user, setUser}) {
               </>
             }
         </GoogleMap>
+        </div>
         </>
     )
 };

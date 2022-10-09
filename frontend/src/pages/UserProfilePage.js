@@ -37,10 +37,10 @@ function UserProfilePage ({setUser}) {
     setRatings(ratingsArray);
     console.log(ratingsArray);
 
-    let url = new URL("http://localhost:3000");
-    url.searchParams.append("/:_id", ratingsArray[0]);
+    let url = new URL("http://localhost:3000/rating/?") + new URLSearchParams({_id: ratingsArray[0]});
+    console.log(url);
 
-    const response = await fetch(url, {method: 'GET'})
+    const response = await fetch("http://localhost:3000/rating/?" + new URLSearchParams({_id: ratingsArray[0]}), {method: 'GET'})
     .then(response => {
       const a_rating = response.json();
       console.log(a_rating);

@@ -5,7 +5,8 @@ import RatingTable from '../components/RatingTable.js';
 function UserProfilePage ({setUser}) {
 
   const [ratings, setRatings] = useState({});
-  //const [ratingToUpdate, setRatingToUpdate] = useState({});
+  const [ratingsToUpdate, setRatingsToUpdate] = useState({});
+
 
   // checks local storage for a user and if found, sets user to the stored user
   useEffect(() => {
@@ -37,7 +38,6 @@ function UserProfilePage ({setUser}) {
     ratingsIDArray.push(arrayIDValue);
 
 
-
     // iterate through the ratings ID Array, making a fetch request for each ID and storing in a rating ID
     let ratingsArray = []
 
@@ -54,13 +54,15 @@ function UserProfilePage ({setUser}) {
       )
     }
     console.log(ratingsArray);
+    setRatingsToUpdate(ratingsArray)
     return ratingsArray;
   }
 
+  console.log(`ratings to update: ${ratingsToUpdate}`)
 
   return (
     <>
-      <RatingTable/>
+      <RatingTable ratingsToUpdate={ratingsToUpdate}/>
     </>
   );
 };

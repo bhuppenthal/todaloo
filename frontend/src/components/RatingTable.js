@@ -3,7 +3,13 @@ import { useEffect, useState } from 'react';
 
 import RatingRow from './RatingRow';
 
-const RatingTable = ({ratingsArray}) => {
+const RatingTable = ({ratingsToUpdate}) => {
+
+    console.log(`ratingsarray from ratingtable ${ratingsToUpdate}`)
+    console.log(ratingsToUpdate)
+    let ratingsString = JSON.stringify(ratingsToUpdate[3])
+    console.log(ratingsString)
+    
 
     return (
         <table>

@@ -7,8 +7,8 @@ const RatingTable = ({ratingsToUpdate}) => {
 
     console.log(`ratingsarray from ratingtable ${ratingsToUpdate}`)
     console.log(ratingsToUpdate)
-    let ratingsString = JSON.stringify(ratingsToUpdate[3])
-    console.log(ratingsString)
+    // let ratingsString = JSON.stringify(ratingsToUpdate[3])
+    // console.log(ratingsString)
     
 
     return (
@@ -20,6 +20,7 @@ const RatingTable = ({ratingsToUpdate}) => {
                 </tr> 
             </thead>
             <tbody>
+                {ratingsToUpdate.map((rate) => <RatingRow rate={rate}/>)}
             </tbody>
         </table>
     )

@@ -1,57 +1,58 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 
-const RatingRow = ({name, rating}) => {
+const RatingRow = ({rate}) => {
 
-    const [ratings, setRatings] = useState({});
+  const {bathroomId, date} = rate;
+  //   const [ratings, setRatings] = useState({});
 
-    // Retrieve all ratings associated with the saved user
-  const loadRatings = async () => {
-    const ratings = localStorage.getItem("userRatings");
+  //   // Retrieve all ratings associated with the saved user
+  // const loadRatings = async () => {
+  //   const ratings = localStorage.getItem("userRatings");
 
-    let ratingsIDArray = [];
-    let arrayIDValue = "";
+  //   let ratingsIDArray = [];
+  //   let arrayIDValue = "";
 
-    for (let char of ratings) {
-      if (char !== ",") {
-        arrayIDValue = arrayIDValue + char;
-      } else {
-        ratingsIDArray.push(arrayIDValue);
-        arrayIDValue = "";
-      }
-    }
-    ratingsIDArray.push(arrayIDValue);
+  //   for (let char of ratings) {
+  //     if (char !== ",") {
+  //       arrayIDValue = arrayIDValue + char;
+  //     } else {
+  //       ratingsIDArray.push(arrayIDValue);
+  //       arrayIDValue = "";
+  //     }
+  //   }
+  //   ratingsIDArray.push(arrayIDValue);
 
-    // iterate through the ratings ID Array, making a fetch request for each ID and storing in a rating ID
-    let ratingsArray = []
+  //   // iterate through the ratings ID Array, making a fetch request for each ID and storing in a rating ID
+  //   let ratingsArray = []
 
-    for (let i = 0; i < ratingsIDArray.length; i++) {
+  //   for (let i = 0; i < ratingsIDArray.length; i++) {
 
-      const response = await fetch("http://localhost:3000/rating/" + ratingsIDArray[i], {method: 'GET'})
-      .then(response => {
-        const rating = response.json();
-        ratingsArray.push(rating);
-      })
-      .catch( error => {
-        alert("Some error occurred.");
-      }
-      )
-    }
-    console.log(ratingsArray);
-    setRatings(ratingsArray);
-  }
+  //     const response = await fetch("http://localhost:3000/rating/" + ratingsIDArray[i], {method: 'GET'})
+  //     .then(response => {
+  //       const rating = response.json();
+  //       ratingsArray.push(rating);
+  //     })
+  //     .catch( error => {
+  //       alert("Some error occurred.");
+  //     }
+  //     )
+  //   }
+  //   console.log(ratingsArray);
+  //   setRatings(ratingsArray);
+  // }
 
-    useEffect(() =>{
-        loadRatings();
-    },[]);
+  //   useEffect(() =>{
+  //       loadRatings();
+  //   },[]);
 
-    loadRatings();
+  //   loadRatings();
 
     return (
         <>
         <tr>
-            <td>name</td>
-            <td>rating</td>
+            <td>{bathroomId}</td>
+            <td>{date}}</td>
         </tr>
         {/* {ratings.map((rating, i) => (
             <>

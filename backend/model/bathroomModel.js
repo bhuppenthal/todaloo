@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import * as db from './db.js';
+import * as ratingModel from './ratingModel.js';
 
 // bathroom schema
 const bathroomSchema = mongoose.Schema({
@@ -24,6 +25,11 @@ const findBathroomById = async (_id) => {
     return query.exec();
 }
 
+const findBathroomId = async (position) => {
+    const query = Bathroom.findOne({position: position}, '_id');
+    return query.exec()
+}
+
 // create a bathroom
 const createBathroom = async (position, rating, name, tags) => {
     const bathroom = new Bathroom({
@@ -35,5 +41,22 @@ const createBathroom = async (position, rating, name, tags) => {
     return bathroom.save();
 }
 
+// update bathroom's aggregate rating
+const updateAggregateRating = async (bathroomId) => {
+    const bathroom = await findBathroomById(bathroomId)
+    console.log(bathroom)
+    const ratingsFilter = { bathroomId: bathroomId }
+    const ratings = await ratingModel.findRatings(ratingsFilter)
+    console.log(ratings)
+    let ratingSum = 0
+    for (let i=0; i < ratings.length; i++){
+        ratingSum += ratings[i].rating
+    }
+    const ratingCount = ratings.length
+    let newRating = ratingSum / ratingCount
+    bathroom.rating = newRating
+    return bathroom.save();
+}
+
 // export for use in controller file
-export { createBathroom, findBathrooms, findBathroomById }
+export { findBathroomId, updateAggregateRating, createBathroom, findBathrooms, findBathroomById }

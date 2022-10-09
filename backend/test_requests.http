@@ -1,3 +1,12 @@
+### test
+POST http://localhost:3000/test HTTP/1.1
+content-type: application/json
+
+{
+    "bathroom_id": "1",
+    "user_id": "6341f9955445851a81243070"
+}
+
 ### get bathrooms
 GET http://localhost:3000/bathroom HTTP/1.1
 content-type: application/json
@@ -7,10 +16,11 @@ POST http://localhost:3000/bathroom HTTP/1.1
 content-type: application/json
 
 {
-    "position": {"lat": 44.567132, "lng": -123.272541},
-    "rating": 5,
-    "name": "OSU Bathroom",
-    "tags": {"free": true, "gender-neutral": false, "disability friendly": true, "changing stations": false}
+    "position": {"lat": 0.568200, "lng": -123.272541},
+    "rating": 1,
+    "name": "Testing createRating2",
+    "tags": {"free": false, "gender-neutral": false, "disability friendly": true, "changing stations": false},
+    "username": "Testgirl2" 
 }
 
 ### create bathroom 2
@@ -21,7 +31,8 @@ content-type: application/json
     "position": {"lat": 44.554297, "lng": -123.274483},
     "rating": 3,
     "name": "OSU Bathroom 2",
-    "tags": {"free": true, "gender-neutral": true, "disability friendly": true, "changing stations": false}
+    "tags": {"free": true, "gender-neutral": true, "disability friendly": true, "changing stations": false},
+    "username": "Testguy" 
 }
 
 ### create bathroom 3
@@ -29,10 +40,11 @@ POST http://localhost:3000/bathroom HTTP/1.1
 content-type: application/json
 
 {
-    "position": {"lat": 44.550146, "lng": -123.312394},
+    "position": {"lat": 1.550146, "lng": -123.312394},
     "rating": 1,
-    "name": "OSU Bathroom 2",
-    "tags": {"free": false, "gender-neutral": false, "disability friendly": false, "changing stations": false}
+    "name": "OSU Bathroom 69",
+    "tags": {"free": false, "gender-neutral": false, "disability friendly": false, "changing stations": false},
+    "username": "Testguy" 
 }
 
 ### create user 1
@@ -40,7 +52,16 @@ POST http://localhost:3000/register HTTP/1.1
 content-type: application/json
 
 {
-    "name": "Testguy",
+    "username": "Testguy2",
+    "password": "12345"
+}
+
+### create user 2
+POST http://localhost:3000/register HTTP/1.1
+content-type: application/json
+
+{
+    "username": "Testgirl2",
     "password": "12345"
 }
 
@@ -54,10 +75,40 @@ content-type: application/json
 }
 
 ### delete user by id
-DELETE http://localhost:3000/user/634065f0fb02dd148db86344 HTTP/1.1
+DELETE http://localhost:3000/user/6341074740ac48127e4502c4 HTTP/1.1
 content-type: application/json
 
 ### get by position
 GET http://localhost:3000/bathroom/position/ HTTP/1.1
 content-type: application/json
 
+### create new rating
+POST http://localhost:3000/rating HTTP/1.1
+content-type: application/json
+
+{
+    "username": "Testguy2",
+    "bathroom_id": "634238d48dafc81d8d0ed04e",
+    "rating": 5
+}
+
+### update given rating
+PUT  http://localhost:3000/rating HTTP/1.1
+content-type: application/json
+
+{
+    "rating_id": "63419f63f5b875989681a1fd",
+    "new_rating": "2"
+}
+
+### get all ratings by a user from user id
+GET http://localhost:3000/rating/63422362835c7cc124fb820e HTTP/1.1
+content-type: application/json
+
+### get all ratings by a user from username
+GET http://localhost:3000/rating/b HTTP/1.1
+content-type: application/json
+
+### get a rating by its id
+GET http://localhost:3000/rating/634208458a376dcda721fd80 HTTP/1.1
+content-type: application/json

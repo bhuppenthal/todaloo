@@ -8,7 +8,7 @@ import { RiHome4Fill, RiHandCoinFill } from "react-icons/ri";
 
 import StarRating from '../components/StarRating';
 
-function Map ({bathroomLatLng, setBathroomLatLng}) {
+function Map ({bathroomLatLng, setBathroomLatLng, user, setUser}) {
 
   const [bathrooms, setBathrooms] = useState([]);
   const [showButton, setShowButton] = useState(false);
@@ -16,6 +16,18 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
 
   const navigate = useNavigate();
   console.log(bathroomLatLng); // do not remove this statement, it is a load bearing console log
+  
+  // checks local storage for a user and if found, sets user to the stored user
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("user");
+    if (loggedInUser) {
+      const foundUser = JSON.parse(loggedInUser);
+      setUser(foundUser);
+    }
+  }, []);
+
+  console.log("USER ON THIS PAGE:");
+  console.log(user);
 
   // Retrieve all the bathrooms in db
   const loadBathrooms = async () => {
@@ -80,7 +92,7 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
   };
 
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: "AIzaSyCSav7XYiFV_A__jXEwiNmcrryHmYS-VPY",
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   })
     
   if (loadError) return "Error"; 
@@ -89,11 +101,13 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
   console.log(bathrooms)
   return (
       <>
-      <div className="container">
-        {showButton &&          
-            <button onClick={buttonClick} className="button">Click to create the bathroom</button>          
+      <div>
+        {(!showButton && Object.keys(selectedBathroom).length !== 0) &&
+          <div className="emptyDiv"></div>
         }
-        </div>
+        {showButton &&          
+          <button onClick={buttonClick} className="button">Click to create the bathroom</button>          
+        }
         {(Object.keys(selectedBathroom).length !== 0) &&
           <div>
             <p>{selectedBathroom.name}</p>
@@ -130,6 +144,8 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
             }
           </div>
         }
+      </div>
+      <div className="container">        
         <GoogleMap
             mapContainerStyle={containerStyle}
             center={center}
@@ -138,7 +154,11 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
             
             {bathrooms.map((bathroom, i) => (
               <>
-              <Marker position={{lat: bathroom.position.lat, lng: bathroom.position.lng}} onClick={markerClick} key={i}/>
+              <Marker 
+                  position={{lat: bathroom.position.lat, lng: bathroom.position.lng}} 
+                  onClick={markerClick} 
+                  key={i}
+                  icon= {{url: '/toliet-icon50.png'}}/>
               </>
             ))};
 
@@ -148,6 +168,7 @@ function Map ({bathroomLatLng, setBathroomLatLng}) {
               </>
             }
         </GoogleMap>
+        </div>
         </>
     )
 };

@@ -15,11 +15,27 @@ function SubmitForm ({bathroomLatLng}) {
         );
     }
 
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+
+    console.log(storedUser)
+
+    // const [loggedInUser, setLoggedInUser] = useState('');
+
+    // useEffect(() => {
+    //   const storedUser = localStorage.getItem('user');
+    //   if (storedUser) {
+    //     const foundUser = JSON.parse(storedUser);
+    //     setLoggedInUser(foundUser);
+    //     console.log(foundUser)
+    //   }
+
+    //   console.log(loggedInUser)
+    // }, []);
+
     console.log(bathroomLatLng);
 
     const [rating, setRating] = useState('');
     const [name, setName] = useState('');
-    const [tags, setTag] = useState('');
     const [checkedAccessible, setCheckedAccessible] = React.useState(false);
     const [checkedFree, setCheckedFree] = React.useState(false);
     const [checkedGenderNeutral, setCheckedGenderNeutral] = React.useState(false);
@@ -54,7 +70,8 @@ function SubmitForm ({bathroomLatLng}) {
           position : bathroomLatLng,
           rating : rating,
           name : name,
-          tags : {accessible: checkedAccessible, free: checkedFree, genderNeutral: checkedGenderNeutral, changingStation: checkedChangingStation, showers: checkedShowers }
+          tags : {accessible: checkedAccessible, free: checkedFree, genderNeutral: checkedGenderNeutral, changingStation: checkedChangingStation, showers: checkedShowers },
+          username : storedUser.username
         }
           
         console.log(newBathroom)

@@ -1,11 +1,14 @@
 import express from 'express';
-import * as bathroomModel from './model/bathroomModel.js';
-import * as userModel from './model/userModel.js'
 import 'dotenv/config';
 import cors from 'cors';
 import bcrypt from 'bcrypt';
 import cookieParser from 'cookie-parser';
 import expressSession from 'express-session';
+import mongoose from 'mongoose';
+
+import * as bathroomModel from './model/bathroomModel.js';
+import * as userModel from './model/userModel.js';
+import * as ratingModel from './model/ratingModel.js';
 
 // create express instance, set the listening port
 const PORT = process.env.PORT;
@@ -60,7 +63,7 @@ app.get('/bathroom/:_id', (req, res) => {
 app.get('/bathroom/position', (req, res) => {
     console.log('Received GET request by position.');
     res.set('Access-Control-Allow-Origin', 'https://localhost:3000');
-    bathroomModel.findBathrooms({position: req.param.position})
+    bathroomModel.findBathrooms({position: req.params.position})
     .then(result => {
         if (result != null) {
             res.status(200).json(result);
@@ -84,36 +87,64 @@ app.post('/bathroom', (req, res) => {
     .then(result => {
         if (result.length !== 0) {
             res.status(400).json({Error: 'Bathroom already exists.'});
-        } else {
+        } else {       
+
             bathroomModel.createBathroom(
                 req.body.position,
                 req.body.rating,
                 req.body.name,
                 req.body.tags)
             .then(result => {
-                res.status(201).json(result);
+                ratingModel.createRating(
+                    req.body.username, 
+                    result._id, // bathroom id
+                    req.body.rating)
+                    .then(result =>  {
+                        const ratingId = result._id
+                        userModel.updateUserBathrooms(req.body.username, result.bathroomId)
+                        .then(result => {                            
+                            userModel.updateUserRatings(req.body.username, ratingId)
+                            .then(result => {
+                                res.status(201).json({result})
+                            })                            
+                        })
+                        .catch(error=> {
+                            console.error(error)
+                            res.status(400).json({Error: 'Updating users bathrooms failed.'});
+                        })  
+                    })
+                    .catch(error=> {
+                        console.error(error)
+                        res.status(400).json({Error: 'POST bathroom, then add rating failed.'});
+                    })                
             })
             .catch(error => {
                 console.error(error);
                 res.status(400).json({Error: 'POST bathroom failed.'});
-            })
-        }
-    })    
+            })         
+        }       
+    })
 });
 
+
+// update bathroom
+
+
+// USER ROUTES
 // POST to create a new user
 app.post('/register/', (req, res) => {
     console.log('Received POST request to register.');
+    console.log(req.body);
 
-    // check if the bathroom already exists
-    userModel.findUsers({name: req.body.name})
+    // check if the username already exists
+    userModel.findUsers({name: req.body.username})
     .then(result => {
-        console.log(result)
+        console.log(result);
         if (result.length !== 0) {
             res.status(400).json({Error: 'Username already exists.'});
         } else {
             userModel.createUser(
-                req.body.name,
+                req.body.username,
                 req.body.password
                 )
             .then(result => {
@@ -128,21 +159,33 @@ app.post('/register/', (req, res) => {
     })    
 });
 
-
 // user login
-app.post('/login', async (req, res) => {
+app.post('/login/', async (req, res) => {
+    console.log('Received post request to /login');
     const { username, password } = req.body;
     console.log(username)
     const filter = {name: username}
-    const userList = await userModel.findUsers(filter);
-    // findUsers returns a list of results, so take only result from list
-    const user = userList[0]
-    const validPassword = await bcrypt.compare(password, user.password)
-    if (validPassword) {
-        req.session.user_id = user._id
-    } else {
-        console.log("login failed")
-    }
+    const userList = await userModel.findUsers(filter)
+    .then( userList => {
+        const user = userList[0];
+        console.log(user)
+        const validPassword = bcrypt.compare(password, user.password)
+        .then( validPassword => {
+            if (validPassword) {
+                console.log("login successful");
+                console.log(user);
+                req.session.user_id = user._id;                
+                res.status(201).json(user);
+            } else {
+                console.log("login failed");
+                res.status(400).json(user);
+            }
+        });
+    })
+    .catch( error => {
+        console.log("login failed");
+        res.status(400).json({Error: 'POST login failed.'});
+    });
 })
 
 // user log out
@@ -162,6 +205,110 @@ app.delete('/user/:id', (req, res) => {
             res.send({ error: 'Request failed'});
         });
 });
+
+// RATING ROUTES
+
+// create a new rating
+app.post('/rating/', async (req, res) => {
+    // check if user has already rated
+    const username = req.body.username;
+    const bathroomId = req.body.bathroom_id;
+    const bathroom = bathroomModel.findBathroomById(bathroomId);
+    let userRatings = await userModel.findUserRatings(username);
+    // make userRatings just an array of the user's ratings, without their _id involved
+    userRatings = userRatings.ratings;
+    console.log("post request to new rating")
+    // console.log(userRatings)
+    let hasAlreadyRated = false;
+    for (let i = 0; i < userRatings.length; i++) {
+        const rating = await ratingModel.findRatingById(userRatings[i])        
+        if(rating.bathroomId === bathroomId){
+            hasAlreadyRated = true;
+        }
+    }
+    if (!hasAlreadyRated) {
+        ratingModel.createRating(
+            username,
+            mongoose.Types.ObjectId(bathroomId),
+            req.body.rating
+            )
+            .then(result => {
+                const ratingId = result._id;
+                userModel.addRatingToUser(username, ratingId)
+                .then(result => {
+                    // update bathrooms aggregate rating
+                    bathroomModel.updateAggregateRating(bathroomId)
+                    .then( result => {
+                        console.log(result)
+                        res.status(201).json(result);
+                    })
+                    .catch(error => {
+                        console.error(error)
+                        res.status(400).json({Error: 'Failed to update bathroom\'s aggregate rating.'});
+                    })                    
+                })
+                .catch(error => {
+                    console.error(error)
+                    res.status(400).json({Error: 'POST rating failed adding rating to user.'});
+                })
+            })
+            .catch(error => {
+                console.error(error)
+                res.status(400).json({Error: 'POST rating failed.'});
+            })
+    } else {
+        res.status(400).json({Error: 'User has already rated this bathroom.'});
+    }
+})
+
+
+// get rating by id
+app.get('/rating/:_id', async (req, res) => {
+    const ratingId = req.params._id;
+    console.log(ratingId);
+    ratingModel.findRatingById(ratingId)
+    .then(rating => {
+        res.status(200).json(rating)
+    })
+    .catch(error => {
+        console.error(error)
+        res.status(400).json({Error: 'Failed to find rating by that id.'});
+    })
+})
+
+
+// update given rating
+app.put('/rating/', async (req, res) => {
+    const ratingId = req.body.rating_id
+    const newRating = req.body.new_rating
+    ratingModel.updateRating(ratingId, newRating)
+    .then(result => {
+        bathroomModel.updateAggregateRating(result.bathroomId.toString())
+        .then(result => {
+            // console.log(result)
+            res.status(201).json(result);
+        })
+        .catch(error => {
+            console.error(error)
+            res.status(400).json({Error: 'Failed to update bathroom\'s aggregate rating.'});
+        })        
+    })
+    .catch(error => {
+        console.error(error)
+        res.status(400).json({Error: 'Failed to update rating.'});
+    })
+})
+
+// get all ratings by a given username
+app.get('/rating/:username', async (req, res) => {
+    const userId = await userModel.findUsers({name: req.params.username});
+    console.log(userId);
+    const userRatings = await userModel.findUserRatings(userId);
+    console.log(userRatings);
+    res.status(200);
+    res.header('Access-Control-Allow-Origin', 'https://localhost:3000');
+    res.json(userRatings);
+})
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${process.env.PORT}.`)

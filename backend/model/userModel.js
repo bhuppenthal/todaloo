@@ -4,10 +4,10 @@ import * as db from './db.js';
 
 // user schema
 const userSchema = mongoose.Schema({
-    name: String,
+    name: { type: String },
     ratings: { type: [Object], default: [] },
     bathrooms: { type: [Object], default: []},
-    password: { type: String, required: true }, // TODO: implement password hashing
+    password: { type: String, required: true }, 
     deleted: { type: Boolean, default: false }
 });
 
@@ -18,6 +18,23 @@ const User = mongoose.model("User", userSchema);
 const findUsers = async (filter) => {
     const query = User.find(filter);
     return query.exec();
+}
+
+const findUserId = async(username) => {
+    const query = User.findOne({name: username}, '_id');
+    return query.exec()
+}
+
+const findUserRatings = async(username) => {
+    const query = User.findOne({name: username}, 'ratings');    
+    return query.exec() 
+}
+
+const addRatingToUser = async(username, ratingId) => {
+    const userId = await User.findOne({name: username}, '_id');
+    const user = await findUserById(userId);
+    user.ratings.push(ratingId)
+    return user.save()
 }
 
 // get user by Id
@@ -43,6 +60,20 @@ const createUser = async (name, password) => {
     });    
 }
 
+const updateUserBathrooms = async (username, bathroomId) => {
+    let user = await findUsers({name: username})
+    user = user[0]
+    user.bathrooms.push(bathroomId)
+    return user.save()
+}
+
+const updateUserRatings = async (username, ratingId) => {
+    let user = await findUsers({name: username})
+    user = user[0]
+    user.ratings.push(ratingId)
+    return user.save()
+}
+
 const deleteUserById = async (_id) => {
     const result = await User.deleteOne({_id: _id});
     return result.deletedCount;
@@ -54,4 +85,4 @@ const deleteUserByProperty = async (filter) => {
 }
 
 // export for use in controller
-export { createUser, findUsers, findUserById, deleteUserById, deleteUserByProperty }
+export { findUserId, updateUserRatings, updateUserBathrooms, addRatingToUser, createUser, findUsers, findUserRatings, findUserById, deleteUserById, deleteUserByProperty }

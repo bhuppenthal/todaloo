@@ -173,17 +173,8 @@ app.post('/login/', async (req, res) => {
             if (validPassword) {
                 console.log("login successful");
                 console.log(user);
-                req.session.user_id = user._id;
-                const userContent = { ratings: [], bathrooms: []}
-                for (let i = 0; i < user.ratings.length; i++){
-                    const rating = ratingModel.findRatingById(user.ratings[i])
-                    userContent.ratings.push(rating)
-                }
-                for (let i = 0; i < user.bathrooms.length; i++){
-                    const bathroom = bathroomModel.findBathroomById(user.bathrooms[i])
-                    userContent.bathrooms.push(bathroom)
-                }
-                res.status(201).json(userContent);
+                req.session.user_id = user._id;                
+                res.status(201).json(user);
             } else {
                 console.log("login failed");
                 res.status(400).json(user);
@@ -221,6 +212,7 @@ app.post('/rating/', async (req, res) => {
     // check if user has already rated
     const username = req.body.username;
     const bathroomId = req.body.bathroom_id;
+    const bathroom = bathroomModel.findBathroomById(bathroomId);
     let userRatings = await userModel.findUserRatings(username);
     // make userRatings just an array of the user's ratings, without their _id involved
     userRatings = userRatings.ratings;

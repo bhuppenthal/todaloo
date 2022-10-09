@@ -25,6 +25,11 @@ const findBathroomById = async (_id) => {
     return query.exec();
 }
 
+const findBathroomId = async (position) => {
+    const query = Bathroom.findOne({position: position}, '_id');
+    return query.exec()
+}
+
 // create a bathroom
 const createBathroom = async (position, rating, name, tags) => {
     const bathroom = new Bathroom({
@@ -54,4 +59,4 @@ const updateAggregateRating = async (bathroomId) => {
 }
 
 // export for use in controller file
-export { updateAggregateRating, createBathroom, findBathrooms, findBathroomById }
+export { findBathroomId, updateAggregateRating, createBathroom, findBathrooms, findBathroomById }

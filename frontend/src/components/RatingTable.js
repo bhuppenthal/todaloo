@@ -1,28 +1,15 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 
-const RatingTable = () => {
+import RatingRow from './RatingRow';
 
-    const [ratings, setRatings] = useState();
-    const [user, setUser] = useState();
+const RatingTable = ({ratingsToUpdate}) => {
 
-    const loadRatings = async () => {
-        const ratings = localStorage.getItem("userData");
-        console.log(ratings);
-        console.log(`type of response ${typeof ratings}`);
-        // console.log(Object.keys(ratings));
-        // for (let i = 0; i , Object.keys(ratings); i++) {
-        //     console.log(ratings.i);
-        // }
-        setRatings(ratings);
-    }
-
-    // i am trying to make a fetch request for a specific rating row
-    // which
-
-    useEffect(() => {
-        loadRatings();
-      }, []);
+    console.log(`ratingsarray from ratingtable ${ratingsToUpdate}`)
+    console.log(ratingsToUpdate)
+    let ratingsString = JSON.stringify(ratingsToUpdate[3])
+    console.log(ratingsString)
+    
 
     return (
         <table>
@@ -30,10 +17,10 @@ const RatingTable = () => {
                 <tr>
                     <th>Bathroom Name</th>
                     <th>Rating</th>
-                    <th>Tags</th>
-                    <th>Update?</th>
                 </tr> 
             </thead>
+            <tbody>
+            </tbody>
         </table>
     )
 }

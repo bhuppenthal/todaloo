@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import "./UserLogin.css";
 
 function UserLogin ({user, setUser}) {
 
@@ -56,7 +57,7 @@ function UserLogin ({user, setUser}) {
         <div className="login-title"> 
          
          <form onSubmit={(e) => {e.preventDefault();}}>
-            <label>Enter Username</label>
+            <label className='user-name'>Enter Username</label>
             <input required
                 type="text"
                 placeholder="username"
@@ -64,9 +65,9 @@ function UserLogin ({user, setUser}) {
                 id="username"
                 onChange={(e) => setUsername(e.target.value)} 
             />
-            <label>Enter Password </label>
+            <label className='pass-word'>Enter Password </label>
             <input required
-                type="text"
+                type="password"
                 placeholder="password"
                 value={password}
                 id="password"
@@ -74,7 +75,7 @@ function UserLogin ({user, setUser}) {
             />
             <button
                 type="submit"
-                className="button"
+                className="login-button"
                 onClick={submitUserLogin}>
                 Login
             </button>

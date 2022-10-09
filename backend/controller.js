@@ -264,7 +264,8 @@ app.post('/rating/', async (req, res) => {
 
 // get rating by id
 app.get('/rating/:_id', async (req, res) => {
-    const ratingId = req.params._id
+    const ratingId = req.params._id;
+    console.log(ratingId);
     ratingModel.findRatingById(ratingId)
     .then(rating => {
         res.status(200).json(rating)

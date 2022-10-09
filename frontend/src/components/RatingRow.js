@@ -52,7 +52,7 @@ const RatingRow = ({rate}) => {
         <>
         <tr>
             <td>{bathroomId}</td>
-            <td>{date}}</td>
+            <td>{date}</td>
         </tr>
         {/* {ratings.map((rating, i) => (
             <>

@@ -13,8 +13,8 @@ const RatingRow = ({rate, ratingsToUpdate}) => {
     return (
         <>
         <tr>
-            <td>{bathroomId}</td>
-            <td>{rating}</td>
+            <td className="ratingIDRow">{bathroomId}</td>
+            <td className="ratingRow">{rating}</td>
         </tr>
         {/* {ratings.map((rating, i) => (
             <>

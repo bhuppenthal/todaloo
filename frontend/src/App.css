@@ -110,20 +110,20 @@ h6 {}
 /*  ----- Table rules -----  */
 table {
   border-collapse: collapse;
-  border: 4px solid var(--stardewBorder);
   margin-left: auto;
   margin-right: auto;
   padding: 1% 5%;
+  min-width:300px;
 }
 tr td {
-  border: 2px solid var(--stardewBorder);
   font-size: 25px;
   padding: 2% 5%;
+  text-align: center;
 }
 tr th {
-  border: 2px solid var(--stardewBorder);
   min-width: 100px;
   padding: 3% 5%;
+  text-align: center;
 }
 
 /*  ----- Form rules -----  */
@@ -171,6 +171,11 @@ strong {}
 sub {}
 
 /*  ----- Class definitions -----  */
+.ratingIDRow {
+  min-width: 300px;
+  font-size: 25px;
+  padding: 2% 5%;
+}
 .emptyDiv {
   height:15%;
 }
